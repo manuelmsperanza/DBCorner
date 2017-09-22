@@ -45,7 +45,15 @@
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
+		<Logger name="***REMOVED***.db.corner.javadbconn.JdbClientManager"
+			level="${activeLevel}" additivity="false">
+			<AppenderRef ref="${activeProfile}" />
+		</Logger>
 		<Logger name="***REMOVED***.db.corner.javadbconn.JdbConnectionManager"
+			level="${activeLevel}" additivity="false">
+			<AppenderRef ref="${activeProfile}" />
+		</Logger>
+		<Logger name="***REMOVED***.db.corner.javadbconn.JdbLocalManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>

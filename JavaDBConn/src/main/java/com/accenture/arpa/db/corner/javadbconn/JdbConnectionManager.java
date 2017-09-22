@@ -20,11 +20,6 @@ public class JdbConnectionManager extends ConnectionManager {
 	private static final Logger logger = LogManager.getLogger(JdbConnectionManager.class);
 
 	
-	static {
-		ConnectionManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
-		
-	}
-	
 	/**
 	 * Retrieve the next value of the sequence specified
 	 * @param sequenceName The name of the sequence

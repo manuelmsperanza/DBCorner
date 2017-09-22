@@ -28,9 +28,9 @@ public class CreateDB {
 		//String urlString = "jdbc:" + dbms + ":" + dbName;
 		connectionProps.put("URL", urlString);
 		
-		JdbConnectionManager dbManager = null;
+		JdbLocalManager dbManager = null;
 		try {
-			dbManager = new JdbConnectionManager();
+			dbManager = new JdbLocalManager();
 			dbManager.connect(urlString, connectionProps);
 			
 			//EXECUTE CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.language.sequence.preallocator','1');

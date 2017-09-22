@@ -31,9 +31,9 @@ public class App
 		String urlString = "jdbc:" + dbms + ":" + dbName;
 		connectionProps.put("URL", urlString);
 		
-		JdbConnectionManager dbManager = null;
+		JdbLocalManager dbManager = null;
 		try {
-			dbManager = new JdbConnectionManager();
+			dbManager = new JdbLocalManager();
 			dbManager.connect(urlString, connectionProps);
 			
 			long nOrdAmmVal = dbManager.getNextVal("DUMMY_SEQ");
