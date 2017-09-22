@@ -2,4 +2,5 @@
 *.jar
 *.log
 
-/**/target/**/
+**/target/**/
+**/logs/**/
