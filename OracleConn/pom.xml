@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>***REMOVED***</groupId>
 		<artifactId>DBCorner</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
 	<name>OracleConn</name>
@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>***REMOVED***</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.2</version>
 		</dependency>
 		<!-- https://maven.oracle.com -->
 		<dependency>
@@ -24,5 +24,11 @@
 			<artifactId>ojdbc7</artifactId>
 			<version>12.1.0.2_patched</version>
 		</dependency>
+		<dependency>
+			<groupId>com.oracle.jdbc</groupId>
+			<artifactId>ucp</artifactId>
+			<version>12.1.0.2</version>
+		</dependency>
 	</dependencies>
+	<version>0.0.2</version>
 </project>

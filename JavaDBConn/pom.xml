@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>***REMOVED***</groupId>
 		<artifactId>DBCorner</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.2</version>
 	</parent>
 	<artifactId>JavaDBConn</artifactId>
 	<name>JavaDBConn</name>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>***REMOVED***</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
 		<dependency>
@@ -33,4 +33,5 @@
 		    <version>10.14.1.0</version>
 		</dependency>
 	</dependencies>
+	<version>0.0.1</version>
 </project>

@@ -97,17 +97,28 @@ public class ConnectionManager {
 			this.disconnect();
 		}
 		logger.debug("Connecting to " + URL);
-		this.conn = DriverManager.getConnection(URL, connectionPropsFile);
+		this.setConnection(DriverManager.getConnection(URL, connectionPropsFile));
 
+		logger.traceExit();
+	}
+	
+	/**
+	 * 
+	 * @param conn
+	 * @throws SQLException
+	 * @author manuel.m.speranza
+	 * @since 20-02-2018
+	 */
+	public void setConnection(Connection conn) throws SQLException{
+		logger.traceEntry();
+		this.conn = conn;
 		this.conn.setAutoCommit(false);
 
 		this.prepStms = new StatementsCache<PreparedStatement>(this.conn, PreparedStatement.class);
 		this.prepStmsJnt = new StatementsCache<PreparedStatement>(this.conn, PreparedStatement.class);
 		this.cllbStms = new StatementsCache<CallableStatement>(this.conn, CallableStatement.class);
-
 		logger.traceExit();
 	}
-
 
 	/**
 	 * Clear all cached statements and disconnect from the Oracle database.
