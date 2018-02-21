@@ -2,6 +2,7 @@ package ***REMOVED***.db.corner.oracleconn;
 
 import java.sql.CallableStatement;
 import java.sql.Clob;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	static {
 		ConnectionManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 	}
+	
 	/**
 	 * Retrieve the next value of the sequence specified
 	 * @param sequenceName The name of the sequence

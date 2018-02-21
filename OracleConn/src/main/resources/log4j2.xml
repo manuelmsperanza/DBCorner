@@ -46,7 +46,16 @@
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
+		<Logger
+			name="***REMOVED***.db.corner.oracleconn.OracleUConnectionPoolManager"
+			level="${activeLevel}" additivity="false">
+			<AppenderRef ref="${activeProfile}" />
+		</Logger>
 		<Logger name="***REMOVED***.db.corner.oracleconn.TOMOrclConnManager"
+			level="${activeLevel}" additivity="false">
+			<AppenderRef ref="${activeProfile}" />
+		</Logger>
+		<Logger name="***REMOVED***.db.corner.oracleconn.TOMOrclUConnPoolManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
