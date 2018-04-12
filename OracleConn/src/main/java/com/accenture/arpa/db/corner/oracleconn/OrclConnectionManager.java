@@ -46,6 +46,16 @@ public class OrclConnectionManager extends ConnectionManager{
 		return logger.traceExit(rs.getLong(1));
 	}
 	
+	/**
+	 * Create clob
+	 * @return
+	 * @throws SQLException
+	 * @author manuel.m.speranza
+	 * @since 12-04-2018
+	 */
+	public Clob getClob() throws SQLException{
+		return this.conn.createClob();
+	}
 	
 	public Clob getXmlOfQuery(String selectStm) throws SQLException{
 		logger.traceEntry();
