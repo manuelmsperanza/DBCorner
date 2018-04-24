@@ -1,5 +1,5 @@
 #Create a new project
-mvn archetype:generate -DarchetypeCatalog=http://repo.maven.apache.org/maven2/archetype-catalog.xml -Dfilter=maven-archetype-quickstart -DgroupId=***REMOVED*** -DartifactId=DBCorner -Dpackage=***REMOVED***.db.corner -Dversion=0.0.1-SNAPSHOT
+mvn archetype:generate -DarchetypeCatalog=http://repo.maven.apache.org/maven2/archetype-catalog.xml -Dfilter=maven-archetype-quickstart -DgroupId=net.dtdns.hoffunungland -DartifactId=DBCorner -Dpackage=net.dtdns.hoffunungland.db.corner -Dversion=0.0.1-SNAPSHOT
 #Build settings
 ## Delete the src directory
 ## Change the package type
