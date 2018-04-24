@@ -1,5 +1,5 @@
 #Create a new project
-mvn archetype:generate -DarchetypeCatalog=http://repo.maven.apache.org/maven2/archetype-catalog.xml -Dfilter=maven-archetype-quickstart -DgroupId=net.dtdns.hoffunungland -DartifactId=JavaDBConn -Dpackage=net.dtdns.hoffunungland.db.corner.javadbconn -Dversion=0.0.1-SNAPSHOT
+mvn archetype:generate -DarchetypeCatalog=http://repo.maven.apache.org/maven2/archetype-catalog.xml -Dfilter=maven-archetype-quickstart -DgroupId=net.dtdns.hoffnungland -DartifactId=JavaDBConn -Dpackage=net.dtdns.hoffnungland.db.corner.javadbconn -Dversion=0.0.1-SNAPSHOT
 #Build settings
 ##Remove junit:junit:3.8.1
 
@@ -10,7 +10,7 @@ mvn archetype:generate -DarchetypeCatalog=http://repo.maven.apache.org/maven2/ar
 
 	<dependencies>
 		<dependency>
-			<groupId>net.dtdns.hoffunungland</groupId>
+			<groupId>net.dtdns.hoffnungland</groupId>
 			<artifactId>DBConn</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
