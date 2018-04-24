@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>***REMOVED***</groupId>
+		<groupId>net.dtdns.hoffunungland</groupId>
 		<artifactId>DBCorner</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.3</version>
 	</parent>
 	<artifactId>JavaDBConn</artifactId>
 	<name>JavaDBConn</name>
@@ -16,9 +16,9 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>***REMOVED***</groupId>
+			<groupId>net.dtdns.hoffunungland</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
 		<dependency>
@@ -33,5 +33,5 @@
 		    <version>10.14.1.0</version>
 		</dependency>
 	</dependencies>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 </project>

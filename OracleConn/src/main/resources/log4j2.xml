@@ -25,37 +25,37 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="***REMOVED***.db.corner.dbconn.ConnectionManager"
+		<Logger name="net.dtdns.hoffunungland.db.corner.dbconn.ConnectionManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="***REMOVED***.db.corner.dbconn.StatementCached"
+		<Logger name="net.dtdns.hoffunungland.db.corner.dbconn.StatementCached"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="***REMOVED***.db.corner.dbconn.StatementsCache"
+		<Logger name="net.dtdns.hoffunungland.db.corner.dbconn.StatementsCache"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="***REMOVED***.db.corner.oracleconn.App"
-			level="${activeLevel}" additivity="false">
-			<AppenderRef ref="${activeProfile}" />
-		</Logger>
-		<Logger
-			name="***REMOVED***.db.corner.oracleconn.OrclConnectionManager"
+		<Logger name="net.dtdns.hoffunungland.db.corner.oracleconn.App"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
 		<Logger
-			name="***REMOVED***.db.corner.oracleconn.OracleUConnectionPoolManager"
+			name="net.dtdns.hoffunungland.db.corner.oracleconn.OrclConnectionManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="***REMOVED***.db.corner.oracleconn.TOMOrclConnManager"
+		<Logger
+			name="net.dtdns.hoffunungland.db.corner.oracleconn.OracleUConnectionPoolManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="***REMOVED***.db.corner.oracleconn.TOMOrclUConnPoolManager"
+		<Logger name="net.dtdns.hoffunungland.db.corner.oracleconn.TOMOrclConnManager"
+			level="${activeLevel}" additivity="false">
+			<AppenderRef ref="${activeProfile}" />
+		</Logger>
+		<Logger name="net.dtdns.hoffunungland.db.corner.oracleconn.TOMOrclUConnPoolManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>

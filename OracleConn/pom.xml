@@ -2,9 +2,9 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>***REMOVED***</groupId>
+		<groupId>net.dtdns.hoffunungland</groupId>
 		<artifactId>DBCorner</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.3</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
 	<name>OracleConn</name>
@@ -14,9 +14,9 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>***REMOVED***</groupId>
+			<groupId>net.dtdns.hoffunungland</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.2</version>
+			<version>0.0.3</version>
 		</dependency>
 		<!-- https://maven.oracle.com -->
 		<dependency>
@@ -30,5 +30,5 @@
 			<version>12.1.0.2</version>
 		</dependency>
 	</dependencies>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 </project>
