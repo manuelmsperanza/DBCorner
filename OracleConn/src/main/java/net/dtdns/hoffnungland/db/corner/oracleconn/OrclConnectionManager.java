@@ -88,7 +88,7 @@ public class OrclConnectionManager extends ConnectionManager{
 		logger.traceEntry();
 		
 		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
-		
+		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
 		sav.insertXML(doc);
 		
 		sav.close();
