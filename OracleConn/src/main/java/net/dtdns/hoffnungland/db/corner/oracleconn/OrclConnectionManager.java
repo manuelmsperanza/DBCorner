@@ -9,8 +9,10 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.w3c.dom.Document;
 
 import net.dtdns.hoffnungland.db.corner.dbconn.ConnectionManager;
+import oracle.xml.sql.dml.OracleXMLSave;
 
 /**
  * Manage the connection with the Oracle database and the statements.
@@ -73,6 +75,25 @@ public class OrclConnectionManager extends ConnectionManager{
 		}
 		
 		return logger.traceExit(content);
+		
+	}
+	/**
+	 * Straight invoke of DBMS_XMLSAVE
+	 * @param doc the xml to insert
+	 * @param tableName the target table name
+	 * @author manuel.m.speranza
+	 * @since 27-04-2018
+	 */
+	public void xmlSave(Document doc, String tableName) {
+		logger.traceEntry();
+		
+		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
+		
+		sav.insertXML(doc);
+		
+		sav.close();
+		
+		logger.traceExit();
 		
 	}
 	
