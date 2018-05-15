@@ -28,5 +28,16 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/xsu12.jar"/>
+	<classpathentry kind="lib" path="lib/classgen.jar"/>
+	<classpathentry kind="lib" path="lib/oraclexsql.jar"/>
+	<classpathentry kind="lib" path="lib/xdb.jar"/>
+	<classpathentry kind="lib" path="lib/xml.jar"/>
+	<classpathentry kind="lib" path="lib/xmlcomp.jar"/>
+	<classpathentry kind="lib" path="lib/xmlcomp2.jar"/>
+	<classpathentry kind="lib" path="lib/xmldemo.jar"/>
+	<classpathentry kind="lib" path="lib/xmlmesg.jar"/>
+	<classpathentry kind="lib" path="lib/xmlparserv2.jar"/>
+	<classpathentry kind="lib" path="lib/xschema.jar"/>
+	<classpathentry kind="lib" path="lib/xsqlserializers.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
