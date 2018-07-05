@@ -5,9 +5,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>net.dtdns.hoffnungland</groupId>
+		<groupId>me.hoffnungland</groupId>
 		<artifactId>DBCorner</artifactId>
-		<version>0.0.4</version>
+		<version>0.0.5</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
 	<name>OracleConn</name>
@@ -17,9 +17,9 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>net.dtdns.hoffnungland</groupId>
+			<groupId>me.hoffnungland</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.3</version>
+			<version>0.0.5</version>
 		</dependency>
 		<!-- https://maven.oracle.com -->
 		<dependency>

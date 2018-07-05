@@ -25,19 +25,19 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="net.dtdns.hoffnungland.db.corner.dbconn.App" level="${activeLevel}"
+		<Logger name="me.hoffnungland.db.corner.dbconn.App" level="${activeLevel}"
 			additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="net.dtdns.hoffnungland.db.corner.dbconn.ConnectionManager" level="${activeLevel}"
+		<Logger name="me.hoffnungland.db.corner.dbconn.ConnectionManager" level="${activeLevel}"
 			additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="net.dtdns.hoffnungland.db.corner.dbconn.StatementCached" level="${activeLevel}"
+		<Logger name="me.hoffnungland.db.corner.dbconn.StatementCached" level="${activeLevel}"
 			additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="net.dtdns.hoffnungland.db.corner.dbconn.StatementsCache" level="${activeLevel}"
+		<Logger name="me.hoffnungland.db.corner.dbconn.StatementsCache" level="${activeLevel}"
 			additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
