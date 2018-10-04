@@ -75,3 +75,9 @@ Add log4j and update jUnit<br>
 			<!--version>2.6.1</version -->
 		</dependency>
 	</dependencies>
+
+#add .gitignore to mandatory empty directory
+	# Ignore everything in this directory
+	*
+	# Except this file
+	!.gitignore

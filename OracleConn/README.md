@@ -25,3 +25,9 @@ Add log4j, jdbc e POI update jUnit<br>
 			<version>12.1.0.2</version>
 		</dependency>
 	</dependencies>
+
+#add .gitignore to mandatory empty directory
+	# Ignore everything in this directory
+	*
+	# Except this file
+	!.gitignore
