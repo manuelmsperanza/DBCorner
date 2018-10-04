@@ -21,3 +21,9 @@ mvn archetype:generate -DarchetypeCatalog=http://repo.maven.apache.org/maven2/ar
 			<version>10.13.1.1</version>
 		</dependency>
 	</dependencies>
+
+#add .gitignore to mandatory empty directory
+	# Ignore everything in this directory
+	*
+	# Except this file
+	!.gitignore
