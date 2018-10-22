@@ -7,6 +7,15 @@
 	<packaging>pom</packaging>
 	<name>DBCorner</name>
 	<url>http://maven.apache.org</url>
+		<scm>
+		<connection>scm:git:https://github.com/manuelmsperanza/DBCorner.git</connection>
+		<developerConnection>scm:git:git@github.com:manuelmsperanza/DBCorner.git</developerConnection>     
+		<tag>HEAD</tag>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/manuelmsperanza/DBCorner/issues</url>
+	</issueManagement>
 	<prerequisites>
 		<maven>3.0</maven>
 	</prerequisites>
