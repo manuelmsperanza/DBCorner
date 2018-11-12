@@ -32,6 +32,66 @@
 			<artifactId>ucp</artifactId>
 			<version>12.2.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>classgen</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>oraclexsql</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xdb</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xml</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xmlcomp</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xmlcomp2</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xmldemo</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xmlmesg</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xmlparserv2</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xschema</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xsqlserializers</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>xsu12</artifactId>
+			<version>10.1.0.2.0</version>
+		</dependency>
 	</dependencies>
 	<version>0.0.8</version>
 </project>
