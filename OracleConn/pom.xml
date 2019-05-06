@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>me.hoffnungland</groupId>
@@ -7,11 +9,28 @@
 		<version>0.0.7</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
+	<version>0.0.9</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<repositories>
+		<repository>
+			<id>maven.oracle.com</id>
+			<url>https://maven.oracle.com</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven.oracle.com</id>
+			<url>https://maven.oracle.com</url>
+		</pluginRepository>
+	</pluginRepositories>
 	<dependencies>
 		<dependency>
 			<groupId>me.hoffnungland</groupId>
@@ -90,9 +109,8 @@
 			<version>10.1.0.2.0</version>
 		</dependency>
 	</dependencies>
-	<version>0.0.9</version>
-
-  <scm>
-    <tag>OracleConn-0.0.9</tag>
-  </scm>
+	
+	<scm>
+		<tag>OracleConn-0.0.9</tag>
+	</scm>
 </project>
