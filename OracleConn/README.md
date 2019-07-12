@@ -1,5 +1,5 @@
 #Create a new project
-mvn archetype:generate -DarchetypeCatalog=org.apache.maven.archetypes -Dfilter=maven-archetype-quickstart -DgroupId=me.hoffnungland -DartifactId=OracleConn -Dpackage=me.hoffnungland.db.corner.oracleconn -Dversion=0.0.1-SNAPSHOT
+mvn archetype:generate -DarchetypeCatalog=org.apache.maven.archetypes -Dfilter=maven-archetype-quickstart -DgroupId=com.hoffnungland -DartifactId=OracleConn -Dpackage=com.hoffnungland.db.corner.oracleconn -Dversion=0.0.1-SNAPSHOT
 #Build settings
 ##Remove junit:junit:3.8.1
 
@@ -14,7 +14,7 @@ Add log4j, jdbc e POI update jUnit<br>
 
 	<dependencies>
 		<dependency>
-			<groupId>me.hoffnungland</groupId>
+			<groupId>com.hoffnungland</groupId>
 			<artifactId>DBConn</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

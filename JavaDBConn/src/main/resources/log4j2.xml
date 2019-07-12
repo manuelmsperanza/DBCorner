@@ -25,35 +25,35 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<Logger name="me.hoffnungland.db.corner.dbconn.ConnectionManager"
+		<Logger name="com.hoffnungland.db.corner.dbconn.ConnectionManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.javadbconn.CreateDB"
+		<Logger name="com.hoffnungland.db.corner.javadbconn.CreateDB"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.dbconn.StatementCached"
+		<Logger name="com.hoffnungland.db.corner.dbconn.StatementCached"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.dbconn.StatementsCache"
+		<Logger name="com.hoffnungland.db.corner.dbconn.StatementsCache"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.javadbconn.App"
+		<Logger name="com.hoffnungland.db.corner.javadbconn.App"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.javadbconn.JdbClientManager"
+		<Logger name="com.hoffnungland.db.corner.javadbconn.JdbClientManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.javadbconn.JdbConnectionManager"
+		<Logger name="com.hoffnungland.db.corner.javadbconn.JdbConnectionManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
-		<Logger name="me.hoffnungland.db.corner.javadbconn.JdbLocalManager"
+		<Logger name="com.hoffnungland.db.corner.javadbconn.JdbLocalManager"
 			level="${activeLevel}" additivity="false">
 			<AppenderRef ref="${activeProfile}" />
 		</Logger>
