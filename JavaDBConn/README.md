@@ -1,5 +1,5 @@
 #Create a new project
-mvn archetype:generate -DarchetypeCatalog=org.apache.maven.archetypes -Dfilter=maven-archetype-quickstart -DgroupId=me.hoffnungland -DartifactId=JavaDBConn -Dpackage=me.hoffnungland.db.corner.javadbconn -Dversion=0.0.1-SNAPSHOT
+mvn archetype:generate -DarchetypeCatalog=org.apache.maven.archetypes -Dfilter=maven-archetype-quickstart -DgroupId=com.hoffnungland -DartifactId=JavaDBConn -Dpackage=com.hoffnungland.db.corner.javadbconn -Dversion=0.0.1-SNAPSHOT
 #Build settings
 ##Remove junit:junit:3.8.1
 
@@ -10,7 +10,7 @@ mvn archetype:generate -DarchetypeCatalog=org.apache.maven.archetypes -Dfilter=m
 
 	<dependencies>
 		<dependency>
-			<groupId>me.hoffnungland</groupId>
+			<groupId>com.hoffnungland</groupId>
 			<artifactId>DBConn</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
