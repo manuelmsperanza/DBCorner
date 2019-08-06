@@ -112,5 +112,6 @@
     <module>DBConn</module>
     <module>OracleConn</module>
     <module>JavaDBConn</module>
+    <module>OracleSwap</module>
   </modules>
 </project>
