@@ -19,16 +19,13 @@ public class TestInventoryGroupExport {
 		logger.traceEntry();
 
 		
-		if(args.length < 3){
+		if(args.length < 2){
 			logger.error("Wrong input parameters. Params are: SourceConnectionName TargetConnectionName");
 			return;
 		}
 
 		String sourceConnectionName = args[0];
 		String targetConnectionName = args[1];
-		
-		//String sourceConnectionName = "***REMOVED***";
-		//String targetConnectionName = "***REMOVED***";
 
 		OrclConnectionManager sourceDbManager = new OrclConnectionManager();
 		OrclConnectionManager targetDbManger = new OrclConnectionManager();
