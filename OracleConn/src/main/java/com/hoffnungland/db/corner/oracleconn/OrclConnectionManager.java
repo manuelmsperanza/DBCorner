@@ -85,12 +85,16 @@ public class OrclConnectionManager extends ConnectionManager{
 	 * @author manuel.m.speranza
 	 * @since 27-04-2018
 	 */
-	public void xmlSave(Document doc, String tableName) {
+	public void xmlSave(Document doc, String tableName, int batchSize, int commitBatchSize) {
 		logger.traceEntry();
 		
 		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
-		sav.setBatchSize(100);
-		sav.setCommitBatch(500);
+		if(batchSize > 0) {
+			sav.setBatchSize(batchSize);
+		}
+		if(commitBatchSize > 0) {
+			sav.setCommitBatch(commitBatchSize);
+		}
 		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
 		sav.insertXML(doc);
 		

@@ -51,11 +51,11 @@ public class App
 				replyStm.execute();
 				
 				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName);
-				
-				targetDbManger.commit();
+				targetDbManger.xmlSave(tableDoc, tableName, 0, 0);
 				logger.info("Loading to " + tableName + " is completed");
 			}
+			
+			targetDbManger.commit();
 			
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);

@@ -18,9 +18,17 @@ public class TestInventoryGroupExport {
 	{
 		logger.traceEntry();
 
+		
+		if(args.length < 3){
+			logger.error("Wrong input parameters. Params are: SourceConnectionName TargetConnectionName");
+			return;
+		}
 
-		String sourceConnectionName = "***REMOVED***";
-		String targetConnectionName = "***REMOVED***";
+		String sourceConnectionName = args[0];
+		String targetConnectionName = args[1];
+		
+		//String sourceConnectionName = "***REMOVED***";
+		//String targetConnectionName = "***REMOVED***";
 
 		OrclConnectionManager sourceDbManager = new OrclConnectionManager();
 		OrclConnectionManager targetDbManger = new OrclConnectionManager();
@@ -67,7 +75,7 @@ public class TestInventoryGroupExport {
 				targetDbManger.commit();
 				
 				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName);
+				targetDbManger.xmlSave(tableDoc, tableName, 100, 500);
 				logger.info("Loading to " + tableName + " is completed");
 				targetDbManger.commit();
 			}
@@ -100,7 +108,7 @@ public class TestInventoryGroupExport {
 				targetDbManger.commit();
 				
 				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName);
+				targetDbManger.xmlSave(tableDoc, tableName, 100, 500);
 				logger.info("Loading to " + tableName + " is completed");
 				targetDbManger.commit();
 			}
