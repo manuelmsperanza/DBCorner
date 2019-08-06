@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 
 import oracle.xml.sql.dml.OracleXMLSave;
+import oracle.xml.sql.query.OracleXMLQuery;
 
 /**
  * Manage the connection with the Oracle database and the statements.
@@ -88,6 +89,8 @@ public class OrclConnectionManager extends ConnectionManager{
 		logger.traceEntry();
 		
 		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
+		sav.setBatchSize(100);
+		sav.setCommitBatch(500);
 		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
 		sav.insertXML(doc);
 		
@@ -95,6 +98,22 @@ public class OrclConnectionManager extends ConnectionManager{
 		
 		logger.traceExit();
 		
+	}
+	
+	/**
+	 * Straight invoke of DBMS_XMLQUERY
+	 * @param query The statement used to extract data
+	 * @return the w3c dom document containing of query result
+	 * @author manuel.m.speranza
+	 * @since 06-08-2019
+	 */
+	public Document xmlQuery(String query) {
+		logger.traceEntry();
+		
+		OracleXMLQuery que = new OracleXMLQuery(this.conn, query);
+		que.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		return logger.traceExit(que.getXMLDOM());
 	}
 	
 }
