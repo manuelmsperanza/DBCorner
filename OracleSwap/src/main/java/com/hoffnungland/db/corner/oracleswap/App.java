@@ -43,7 +43,7 @@ public class App
 			for(int argIdx = 2; argIdx < args.length; argIdx++) {
 				String tableName = args[argIdx];
 				logger.info("Getting " + tableName);
-				Document tableDoc = sourceDbManager.xmlQuery("SELECT * FROM " + tableName);
+				Document tableDoc = sourceDbManager.xmlQueryDocument("SELECT * FROM " + tableName);
 				
 				CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
 				
