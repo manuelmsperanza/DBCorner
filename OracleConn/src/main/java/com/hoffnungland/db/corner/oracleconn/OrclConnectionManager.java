@@ -1,5 +1,6 @@
 package com.hoffnungland.db.corner.oracleconn;
 
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.PreparedStatement;
@@ -104,6 +105,25 @@ public class OrclConnectionManager extends ConnectionManager{
 		
 	}
 	
+	public void xmlSave(String xml, String tableName, int batchSize, int commitBatchSize) throws IOException {
+		logger.traceEntry();
+		
+		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
+		if(batchSize > 0) {
+			sav.setBatchSize(batchSize);
+		}
+		if(commitBatchSize > 0) {
+			sav.setCommitBatch(commitBatchSize);
+		}
+		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		sav.insertXML(xml);
+		
+		sav.close();
+		
+		logger.traceExit();
+		
+	}
+	
 	/**
 	 * Straight invoke of DBMS_XMLQUERY
 	 * @param query The statement used to extract data
@@ -111,7 +131,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	 * @author manuel.m.speranza
 	 * @since 06-08-2019
 	 */
-	public Document xmlQuery(String query) {
+	public Document xmlQueryDocument(String query) {
 		logger.traceEntry();
 		
 		OracleXMLQuery que = new OracleXMLQuery(this.conn, query);
@@ -120,4 +140,13 @@ public class OrclConnectionManager extends ConnectionManager{
 		return logger.traceExit(que.getXMLDOM());
 	}
 	
+	
+	public String xmlQuery(String query) {
+		logger.traceEntry();
+		
+		OracleXMLQuery que = new OracleXMLQuery(this.conn, query);
+		que.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		return logger.traceExit(que.getXMLString());
+	}
 }

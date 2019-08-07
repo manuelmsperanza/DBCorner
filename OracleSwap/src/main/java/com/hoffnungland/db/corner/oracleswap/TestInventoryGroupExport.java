@@ -47,7 +47,7 @@ public class TestInventoryGroupExport {
 				logger.info("Getting " + tableName);
 				//Document tableDoc = sourceDbManager.xmlQuery("SELECT * FROM " + tableName);
 
-				Document tableDoc = sourceDbManager.xmlQuery("select ENTITYID, " + 
+				Document tableDoc = sourceDbManager.xmlQueryDocument("select ENTITYID, " + 
 						"ENTITYCLASS, " + 
 						"to_char(CREATEDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') CREATEDDATE, " + 
 						"CREATEDUSER, " + 
@@ -72,7 +72,7 @@ public class TestInventoryGroupExport {
 				targetDbManger.commit();
 				
 				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName, 100, 500);
+				targetDbManger.xmlSave(tableDoc, tableName, 1000, 5000);
 				logger.info("Loading to " + tableName + " is completed");
 				targetDbManger.commit();
 			}
@@ -82,7 +82,7 @@ public class TestInventoryGroupExport {
 				logger.info("Getting " + tableName);
 				//Document tableDoc = sourceDbManager.xmlQuery("SELECT * FROM " + tableName);
 
-				Document tableDoc = sourceDbManager.xmlQuery("select ENTITYID, " + 
+				Document tableDoc = sourceDbManager.xmlQueryDocument("select ENTITYID, " + 
 						"ENTITYCLASS, " + 
 						"to_char(CREATEDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') CREATEDDATE, " + 
 						"CREATEDUSER, " + 
@@ -105,7 +105,7 @@ public class TestInventoryGroupExport {
 				targetDbManger.commit();
 				
 				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName, 100, 500);
+				targetDbManger.xmlSave(tableDoc, tableName, 1000, 5000);
 				logger.info("Loading to " + tableName + " is completed");
 				targetDbManger.commit();
 			}
