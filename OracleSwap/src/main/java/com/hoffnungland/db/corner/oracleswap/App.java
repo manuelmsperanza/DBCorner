@@ -2,11 +2,18 @@ package com.hoffnungland.db.corner.oracleswap;
 
 import java.io.IOException;
 import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.SQLException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.hoffnungland.db.corner.oracleconn.OrclConnectionManager;
 
@@ -37,22 +44,48 @@ public class App
 			logger.info("Source DB Manager connecting to " + sourceConnectionName);
 			sourceDbManager.connect("./etc/connections/" + sourceConnectionName + ".properties");
 			
+			CallableStatement sourceSessionNumericStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'");
+			sourceSessionNumericStm.execute();
+			CallableStatement sourceSessionDateStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS'");
+			sourceSessionDateStm.execute();
+			CallableStatement sourceSessionTimestampStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF'");
+			sourceSessionTimestampStm.execute();
+			CallableStatement sourceSessionTimestampTzStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF TZR'");
+			sourceSessionTimestampTzStm.execute();
+			
 			logger.info("Target DB Manager connecting to " + targetConnectionName);
 			targetDbManger.connect("./etc/connections/" + targetConnectionName + ".properties");
+			
+			CallableStatement targetSessionNumericStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'");
+			targetSessionNumericStm.execute();
+			CallableStatement targetSessionDateStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS'");
+			targetSessionDateStm.execute();
+			CallableStatement targetSessionTimestampStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF'");
+			targetSessionTimestampStm.execute();
+			CallableStatement targetSessionTimestampTzStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF TZR'");
+			targetSessionTimestampTzStm.execute();
+			
+			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			
 			for(int argIdx = 2; argIdx < args.length; argIdx++) {
 				String tableName = args[argIdx];
 				logger.info("Getting " + tableName);
-				Document tableDoc = sourceDbManager.xmlQueryDocument("SELECT * FROM " + tableName);
+				Clob inContent = sourceDbManager.getXmlOfQuery("SELECT * FROM " + tableName);
 				
-				CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
-				
-				logger.info("Cleaning " + tableName);
-				replyStm.execute();
-				
-				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName, 0, 0);
-				logger.info("Loading to " + tableName + " is completed");
+				if (inContent != null){
+					
+					logger.debug("Convert XML to DOM");
+					Document tableDoc = docBuilder.parse(new InputSource(inContent.getCharacterStream()));
+					logger.debug(tableDoc.getNodeValue());
+					CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
+					
+					logger.info("Cleaning " + tableName);
+					replyStm.execute();
+					
+					logger.info("Saving into " + tableName);
+					targetDbManger.xmlSave(inContent.getCharacterStream(), tableName);
+					logger.info("Loading to " + tableName + " is completed");
+				}
 			}
 			
 			targetDbManger.commit();
@@ -61,11 +94,16 @@ public class App
 			logger.error(e.getMessage(), e);
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
+		} catch (ParserConfigurationException e) {
+			logger.error(e.getMessage(), e);
+		} catch (SAXException e) {
+			logger.error(e.getMessage(), e);
+		} finally {
+			logger.debug("sourceDbManager disconnect");
+			sourceDbManager.disconnect();
+			logger.debug("targetDbManger disconnect");
+			targetDbManger.disconnect();
 		}
-		
-		sourceDbManager.disconnect();
-		targetDbManger.disconnect();
-
 		logger.traceExit();
 	}
 }

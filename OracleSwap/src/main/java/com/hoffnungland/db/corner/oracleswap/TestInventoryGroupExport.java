@@ -1,12 +1,28 @@
 package com.hoffnungland.db.corner.oracleswap;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.sql.CallableStatement;
+import java.sql.Clob;
 import java.sql.SQLException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.hoffnungland.db.corner.oracleconn.OrclConnectionManager;
 
@@ -34,93 +50,79 @@ public class TestInventoryGroupExport {
 			logger.info("Source DB Manager connecting to " + sourceConnectionName);
 			sourceDbManager.connect("./etc/connections/" + sourceConnectionName + ".properties");
 			
+			CallableStatement sourceSessionNumericStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'");
+			sourceSessionNumericStm.execute();
+			CallableStatement sourceSessionDateStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS'");
+			sourceSessionDateStm.execute();
 			CallableStatement sourceSessionTimestampStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF'");
 			sourceSessionTimestampStm.execute();
+			CallableStatement sourceSessionTimestampTzStm = sourceDbManager.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF TZR'");
+			sourceSessionTimestampTzStm.execute();
 			
 			logger.info("Target DB Manager connecting to " + targetConnectionName);
 			targetDbManger.connect("./etc/connections/" + targetConnectionName + ".properties");
 			
+			CallableStatement targetSessionNumericStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '.,'");
+			targetSessionNumericStm.execute();
+			CallableStatement targetSessionDateStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_DATE_FORMAT = 'DD/MM/YYYY HH24:MI:SS'");
+			targetSessionDateStm.execute();
 			CallableStatement targetSessionTimestampStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF'");
 			targetSessionTimestampStm.execute();
+			CallableStatement targetSessionTimestampTzStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF TZR'");
+			targetSessionTimestampTzStm.execute();
+			
 			{
 				String tableName = "INVENTORYGROUP";
 				logger.info("Getting " + tableName);
-				//Document tableDoc = sourceDbManager.xmlQuery("SELECT * FROM " + tableName);
-
-				Document tableDoc = sourceDbManager.xmlQueryDocument("select ENTITYID, " + 
-						"ENTITYCLASS, " + 
-						"to_char(CREATEDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') CREATEDDATE, " + 
-						"CREATEDUSER, " + 
-						"DESCRIPTION, " + 
-						"to_char(ENDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') ENDDATE, " + 
-						"ENTITYVERSION, " + 
-						"to_char(LASTMODIFIEDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') LASTMODIFIEDDATE, " + 
-						"LASTMODIFIEDUSER, " + 
-						"NAME, " + 
-						"NOSPEC, " + 
-						"OWNER, " + 
-						"PARTITION, " + 
-						"PERMISSIONS, " + 
-						"to_char(STARTDATE, 'YYYY-MM-DD HH24:MI:SSXFF') STARTDATE, " + 
-						"SPECIFICATION " + 
-						"from INVENTORYGROUP");
-
-				CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
-
-				logger.info("Cleaning " + tableName);
-				replyStm.execute();
-				targetDbManger.commit();
 				
-				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName, 1000, 5000);
-				logger.info("Loading to " + tableName + " is completed");
-				targetDbManger.commit();
+				Clob inContent = sourceDbManager.getXmlOfQuery("SELECT * FROM " + tableName);
+				
+				if (inContent != null){
+					
+					CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
+					logger.info("Cleaning " + tableName);
+					replyStm.execute();
+					targetDbManger.commit();
+					
+					logger.info("Saving into " + tableName);
+					targetDbManger.xmlSave(inContent.getCharacterStream(), tableName);
+					logger.info("Loading to " + tableName + " is completed");
+					targetDbManger.commit();
+					inContent.free();
+				}
+				
+				
 			}
 			
-			{
+			if(false){
 				String tableName = "INVENTORYGROUP_CHAR";
 				logger.info("Getting " + tableName);
-				//Document tableDoc = sourceDbManager.xmlQuery("SELECT * FROM " + tableName);
-
-				Document tableDoc = sourceDbManager.xmlQueryDocument("select ENTITYID, " + 
-						"ENTITYCLASS, " + 
-						"to_char(CREATEDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') CREATEDDATE, " + 
-						"CREATEDUSER, " + 
-						"to_char(ENDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') ENDDATE, " + 
-						"ENTITYVERSION, " + 
-						"LABEL, " + 
-						"to_char(LASTMODIFIEDDATE, 'YYYY-MM-DD HH24:MI:SSXFF') LASTMODIFIEDDATE, " + 
-						"LASTMODIFIEDUSER, " + 
-						"NAME, " + 
-						"to_char(STARTDATE, 'YYYY-MM-DD HH24:MI:SSXFF') STARTDATE, " + 
-						"VALUE, " + 
-						"CHAROWNER, " + 
-						"CHARACTERISTICSPECIFICATION " + 
-						"from INVENTORYGROUP_CHAR");
-
-				CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
-
-				logger.info("Cleaning " + tableName);
-				replyStm.execute();
-				targetDbManger.commit();
 				
-				logger.info("Saving into " + tableName);
-				targetDbManger.xmlSave(tableDoc, tableName, 1000, 5000);
-				logger.info("Loading to " + tableName + " is completed");
-				targetDbManger.commit();
+				Clob inContent = sourceDbManager.getXmlOfQuery("SELECT * FROM " + tableName);
+				
+				if (inContent != null){
+					
+					CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
+					logger.info("Cleaning " + tableName);
+					replyStm.execute();
+					targetDbManger.commit();
+					
+					logger.info("Saving into " + tableName);
+					targetDbManger.xmlSave(inContent.getCharacterStream(), tableName);
+					logger.info("Loading to " + tableName + " is completed");
+					targetDbManger.commit();
+					inContent.free();
+				}
 			}
-
-			
-
 
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
-			logger.debug("sourceDbManager disconect");
+			logger.debug("sourceDbManager disconnect");
 			sourceDbManager.disconnect();
-			logger.debug("targetDbManger disconect");
+			logger.debug("targetDbManger disconnect");
 			targetDbManger.disconnect();
 		}
 

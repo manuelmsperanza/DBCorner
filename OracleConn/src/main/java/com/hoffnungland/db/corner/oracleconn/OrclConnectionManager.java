@@ -1,11 +1,13 @@
 package com.hoffnungland.db.corner.oracleconn;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.CallableStatement;
 import java.sql.Clob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,7 +30,7 @@ public class OrclConnectionManager extends ConnectionManager{
 
 	private static final Logger logger = LogManager.getLogger(OrclConnectionManager.class);
 	public static final String nslXsDateTimeFormat = "'YYYY-MM-DD\"T\"HH24:MI:SS'";
-	
+		
 	static {
 		ConnectionManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 	}
@@ -79,6 +81,33 @@ public class OrclConnectionManager extends ConnectionManager{
 		return logger.traceExit(content);
 		
 	}
+	
+	public void xmlSave(Reader content, String tableName) throws SQLException {
+		logger.traceEntry();
+		
+		String plsql = "DECLARE\r\n" + 
+				"insCtx DBMS_XMLSTORE.ctxType;\r\n" + 
+				"rows NUMBER;\r\n" + 
+				//"xmlDoc CLOB := ?;\r\n" + 
+				"BEGIN\r\n" + 
+				"insCtx := DBMS_XMLSTORE.newContext(?);\r\n" + 
+				"DBMS_XMLSTORE.clearUpdateColumnList(insCtx);\r\n" + 
+				"? := DBMS_XMLSTORE.insertXML(insCtx, ?);\r\n" + 
+				"DBMS_XMLSTORE.closeContext(insCtx);\r\n" + 
+				"END;";
+		
+		CallableStatement cs = this.conn.prepareCall(plsql);
+		cs.setString(1, tableName);
+		cs.registerOutParameter(2, Types.INTEGER);
+		cs.setClob(3, content);
+		logger.trace("execute");
+		cs.execute();
+
+		logger.info(cs.getInt(2) + " rows inserted.");
+		
+		logger.traceExit();
+	}
+	
 	/**
 	 * Straight invoke of DBMS_XMLSAVE
 	 * @param doc the xml to insert
@@ -90,6 +119,7 @@ public class OrclConnectionManager extends ConnectionManager{
 		logger.traceEntry();
 		
 		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
+		sav.collectTimingInfo(true);
 		if(batchSize > 0) {
 			sav.setBatchSize(batchSize);
 		}
@@ -97,13 +127,22 @@ public class OrclConnectionManager extends ConnectionManager{
 			sav.setCommitBatch(commitBatchSize);
 		}
 		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		logger.trace("insertXML");
 		sav.insertXML(doc);
-		
+		logger.trace("close");
 		sav.close();
 		
 		logger.traceExit();
 		
 	}
+	
+	/**
+	 * Straight invoke of DBMS_XMLSAVE
+	 * @param doc the xml to insert
+	 * @param tableName the target table name
+	 * @author manuel.m.speranza
+	 * @since 06-08-2019
+	 */
 	
 	public void xmlSave(String xml, String tableName, int batchSize, int commitBatchSize) throws IOException {
 		logger.traceEntry();
@@ -127,7 +166,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	/**
 	 * Straight invoke of DBMS_XMLQUERY
 	 * @param query The statement used to extract data
-	 * @return the w3c dom document containing of query result
+	 * @return the w3c dom document containing the query result
 	 * @author manuel.m.speranza
 	 * @since 06-08-2019
 	 */
@@ -140,6 +179,13 @@ public class OrclConnectionManager extends ConnectionManager{
 		return logger.traceExit(que.getXMLDOM());
 	}
 	
+	/**
+	 * Straight invoke of DBMS_XMLQUERY
+	 * @param query The statement used to extract data
+	 * @return the xml string containing the query result
+	 * @author manuel.m.speranza
+	 * @since 07-08-2019
+	 */
 	
 	public String xmlQuery(String query) {
 		logger.traceEntry();
@@ -149,4 +195,7 @@ public class OrclConnectionManager extends ConnectionManager{
 		
 		return logger.traceExit(que.getXMLString());
 	}
+	
+
+	
 }
