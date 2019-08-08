@@ -94,7 +94,7 @@ public class TestInventoryGroupExport {
 				
 			}
 			
-			if(false){
+			{
 				String tableName = "INVENTORYGROUP_CHAR";
 				logger.info("Getting " + tableName);
 				
