@@ -1,7 +1,11 @@
 package com.hoffnungland.db.corner.oracleswap;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.CallableStatement;
@@ -29,7 +33,8 @@ import com.hoffnungland.db.corner.oracleconn.OrclConnectionManager;
 public class TestInventoryGroupExport {
 
 	private static final Logger logger = LogManager.getLogger(TestInventoryGroupExport.class);
-
+	private static final String ls = System.getProperty("line.separator");
+	
 	public static void main( String[] args )
 	{
 		logger.traceEntry();
@@ -71,6 +76,7 @@ public class TestInventoryGroupExport {
 			CallableStatement targetSessionTimestampTzStm = targetDbManger.getCallableStm("ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SSXFF TZR'");
 			targetSessionTimestampTzStm.execute();
 			
+			DocumentBuilder docBuilder  = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			{
 				String tableName = "INVENTORYGROUP";
 				logger.info("Getting " + tableName);
@@ -79,13 +85,47 @@ public class TestInventoryGroupExport {
 				
 				if (inContent != null){
 					
+					/*logger.debug("Parse xml");
+					Document doc = docBuilder.parse(new InputSource(inContent.getCharacterStream()));
+					logger.debug("Normalize dom");
+					doc.normalize();*/
+					
+					File tempFile = File.createTempFile(tableName + "_" + sourceConnectionName + "_", ".xml");
+					logger.debug("Temporary file created: " + tempFile.getName());
+					tempFile.deleteOnExit();
+					FileWriter tmpFileWriter = new FileWriter(tempFile);
+					BufferedReader reader = new BufferedReader(inContent.getCharacterStream());
+					String line = null;
+					logger.debug("Swapping");
+					while( ( line = reader.readLine() ) != null ) {
+						tmpFileWriter.write(line + ls);
+					}
+					
+					tmpFileWriter.flush();
+					tmpFileWriter.close();
+					
+					// create the xml file
+		            //transform the DOM Object to an XML File
+		            /*TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		            Transformer transformer = transformerFactory.newTransformer();
+		            DOMSource domSource = new DOMSource(doc);
+		            StreamResult streamResult = new StreamResult(tempFile);
+		 
+		            // If you use
+		            // StreamResult result = new StreamResult(System.out);
+		            // the output will be pushed to the standard output ...
+		            // You can use that for debugging 
+		            transformer.transform(domSource, streamResult);*/
+					
 					CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
 					logger.info("Cleaning " + tableName);
 					replyStm.execute();
 					targetDbManger.commit();
 					
+					FileReader tmpFileReader = new FileReader(tempFile);
+					
 					logger.info("Saving into " + tableName);
-					targetDbManger.xmlSave(inContent.getCharacterStream(), tableName);
+					targetDbManger.xmlSave(tmpFileReader, tableName);
 					logger.info("Loading to " + tableName + " is completed");
 					targetDbManger.commit();
 					inContent.free();
@@ -101,14 +141,48 @@ public class TestInventoryGroupExport {
 				Clob inContent = sourceDbManager.getXmlOfQuery("SELECT * FROM " + tableName);
 				
 				if (inContent != null){
+				
+					/*logger.debug("Parse xml");
+					Document doc = docBuilder.parse(new InputSource(inContent.getCharacterStream()));
+					logger.debug("Normalize dom");
+					doc.normalize();*/
+					
+					File tempFile = File.createTempFile(tableName + "_" + sourceConnectionName + "_", ".xml");
+					logger.debug("Temporary file created: " + tempFile.getName());
+					tempFile.deleteOnExit();
+					FileWriter tmpFileWriter = new FileWriter(tempFile);
+					BufferedReader reader = new BufferedReader(inContent.getCharacterStream());
+					String line = null;
+					logger.debug("Swapping");
+					while( ( line = reader.readLine() ) != null ) {
+						tmpFileWriter.write(line + ls);
+					}
+					
+					tmpFileWriter.flush();
+					tmpFileWriter.close();
+					
+					// create the xml file
+		            //transform the DOM Object to an XML File
+		            /*TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		            Transformer transformer = transformerFactory.newTransformer();
+		            DOMSource domSource = new DOMSource(doc);
+		            StreamResult streamResult = new StreamResult(tempFile);
+		 
+		            // If you use
+		            // StreamResult result = new StreamResult(System.out);
+		            // the output will be pushed to the standard output ...
+		            // You can use that for debugging 
+		            transformer.transform(domSource, streamResult);*/
 					
 					CallableStatement replyStm = targetDbManger.getCallableStm("DELETE " + tableName);
 					logger.info("Cleaning " + tableName);
 					replyStm.execute();
 					targetDbManger.commit();
 					
+					FileReader tmpFileReader = new FileReader(tempFile);
+					
 					logger.info("Saving into " + tableName);
-					targetDbManger.xmlSave(inContent.getCharacterStream(), tableName);
+					targetDbManger.xmlSave(tmpFileReader, tableName);
 					logger.info("Loading to " + tableName + " is completed");
 					targetDbManger.commit();
 					inContent.free();
@@ -118,6 +192,8 @@ public class TestInventoryGroupExport {
 		} catch (IOException e) {
 			logger.error(e.getMessage(), e);
 		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} catch (ParserConfigurationException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
 			logger.debug("sourceDbManager disconnect");
