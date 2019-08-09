@@ -90,7 +90,7 @@ public class TestInventoryGroupExport {
 					logger.debug("Normalize dom");
 					doc.normalize();*/
 					
-					File tempFile = File.createTempFile(tableName + "_" + sourceConnectionName + "_", ".xml");
+					/*File tempFile = File.createTempFile(tableName + "_" + sourceConnectionName + "_", ".xml");
 					logger.debug("Temporary file created: " + tempFile.getName());
 					tempFile.deleteOnExit();
 					FileWriter tmpFileWriter = new FileWriter(tempFile);
@@ -102,7 +102,7 @@ public class TestInventoryGroupExport {
 					}
 					
 					tmpFileWriter.flush();
-					tmpFileWriter.close();
+					tmpFileWriter.close();*/
 					
 					// create the xml file
 		            //transform the DOM Object to an XML File
@@ -122,10 +122,11 @@ public class TestInventoryGroupExport {
 					replyStm.execute();
 					targetDbManger.commit();
 					
-					FileReader tmpFileReader = new FileReader(tempFile);
+					//FileReader tmpFileReader = new FileReader(tempFile);
 					
 					logger.info("Saving into " + tableName);
-					targetDbManger.xmlSave(tmpFileReader, tableName);
+					//targetDbManger.xmlSave(tmpFileReader, tableName);
+					targetDbManger.xmlSave(inContent.getCharacterStream(), tableName);
 					logger.info("Loading to " + tableName + " is completed");
 					targetDbManger.commit();
 					inContent.free();
