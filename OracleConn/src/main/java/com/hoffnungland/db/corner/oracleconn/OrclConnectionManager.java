@@ -196,6 +196,19 @@ public class OrclConnectionManager extends ConnectionManager{
 		return logger.traceExit(que.getXMLString());
 	}
 	
+	/**
+	 * Execute the truncate table
+	 * @param tableName the name of the table to truncate
+	 * @throws SQLException
+	 * @since 23-12-2019
+	 */
+	public void truncateTable(String tableName) throws SQLException {
+		logger.traceEntry();
+		
+		this.conn.prepareStatement("TRUNCATE TABLE " + tableName).execute();
+		
+		logger.traceExit();
+	}
 
 	
 }
