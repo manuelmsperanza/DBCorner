@@ -9,7 +9,7 @@
 		<version>0.0.8</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
-	<version>0.0.13</version>
+	<version>0.0.14</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<properties>

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.hoffnungland</groupId>
 	<artifactId>OracleSwap</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>OracleSwap</name>
 	<build>
 		<pluginManagement>
@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>OracleConn</artifactId>
-			<version>0.0.13</version>
+			<version>0.0.14</version>
 		</dependency>
 	</dependencies>
 </project>
