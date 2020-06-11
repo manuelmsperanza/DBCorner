@@ -22,7 +22,7 @@ import oracle.xml.sql.query.OracleXMLQuery;
  * Manage the connection with the Oracle database and the statements.
  * @author manuel.m.speranza
  * @since 05-05-2017
- * @version 0.1
+ * @version 0.2
  */
 //TODO: WHERE ROWID = 'AAAW5TAAHAAEK8jAAA' AND ORA_ROWSCN = '14434883321763'
 
@@ -30,7 +30,9 @@ public class OrclConnectionManager extends ConnectionManager{
 
 	private static final Logger logger = LogManager.getLogger(OrclConnectionManager.class);
 	public static final String nslXsDateTimeFormat = "'YYYY-MM-DD\"T\"HH24:MI:SS'";
-		
+	
+	private CallableStatement xmlGenStm = null;
+	
 	static {
 		ConnectionManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
 	}
@@ -66,15 +68,16 @@ public class OrclConnectionManager extends ConnectionManager{
 	public Clob getXmlOfQuery(String selectStm) throws SQLException{
 		logger.traceEntry();
 		
-		CallableStatement resStm = this.prepareInvoke("DBMS_XMLGEN.GETXML", "{? = call DBMS_XMLGEN.GETXML(?)}").getStm();
+		if(this.xmlGenStm != null) {
+			this.xmlGenStm = this.prepareInvoke("DBMS_XMLGEN.GETXML", "{? = call DBMS_XMLGEN.GETXML(?)}").getStm();
+		}
+		this.xmlGenStm.registerOutParameter(1, java.sql.Types.CLOB);
+		this.xmlGenStm.setString(2, selectStm);
 		
-		resStm.registerOutParameter(1, java.sql.Types.CLOB);
-		resStm.setString(2, selectStm);
+		this.xmlGenStm.execute();
 		
-		resStm.execute();
-		
-		Clob content = resStm.getClob(1);
-		if(resStm.wasNull()){
+		Clob content = this.xmlGenStm.getClob(1);
+		if(this.xmlGenStm.wasNull()){
 			content = null;
 		}
 		
@@ -102,8 +105,8 @@ public class OrclConnectionManager extends ConnectionManager{
 		cs.setClob(3, content);
 		logger.trace("execute");
 		cs.execute();
-
 		logger.info(cs.getInt(2) + " rows inserted.");
+		cs.close();
 		
 		logger.traceExit();
 	}
