@@ -68,7 +68,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	public Clob getXmlOfQuery(String selectStm) throws SQLException{
 		logger.traceEntry();
 		
-		if(this.xmlGenStm != null) {
+		if(this.xmlGenStm == null) {
 			this.xmlGenStm = this.prepareInvoke("DBMS_XMLGEN.GETXML", "{? = call DBMS_XMLGEN.GETXML(?)}").getStm();
 		}
 		this.xmlGenStm.registerOutParameter(1, java.sql.Types.CLOB);
