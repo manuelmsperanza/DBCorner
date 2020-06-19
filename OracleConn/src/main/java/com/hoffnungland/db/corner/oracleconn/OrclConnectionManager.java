@@ -85,7 +85,7 @@ public class OrclConnectionManager extends ConnectionManager{
 		
 	}
 	
-	public void xmlSave(Reader content, String tableName) throws SQLException {
+	public int xmlSave(Reader content, String tableName) throws SQLException {
 		logger.traceEntry();
 		
 		String plsql = "DECLARE\r\n" + 
@@ -105,13 +105,14 @@ public class OrclConnectionManager extends ConnectionManager{
 		cs.setClob(3, content);
 		logger.trace("execute");
 		cs.execute();
-		logger.info(cs.getInt(2) + " rows inserted.");
+		int rowcount = cs.getInt(2);
+		logger.info(rowcount + " rows inserted.");
 		cs.close();
 		
-		logger.traceExit();
+		return logger.traceExit(rowcount);
 	}
 	
-	public void xmlUpdate(Reader content, String tableName, String columnKey) throws SQLException {
+	public int xmlUpdate(Reader content, String tableName, String columnKey) throws SQLException {
 		logger.traceEntry();
 		
 		String plsql = "DECLARE\r\n" + 
@@ -133,13 +134,14 @@ public class OrclConnectionManager extends ConnectionManager{
 		cs.setClob(4, content);
 		logger.trace("execute");
 		cs.execute();
-		logger.info(cs.getInt(3) + " rows updated.");
+		int rowcount = cs.getInt(3);
+		logger.info(rowcount + " rows updated.");
 		cs.close();
 		
-		logger.traceExit();
+		return logger.traceExit(rowcount);
 	}
 	
-	public void xmlDelete(Reader content, String tableName, String columnKey) throws SQLException {
+	public int xmlDelete(Reader content, String tableName, String columnKey) throws SQLException {
 		logger.traceEntry();
 		
 		String plsql = "DECLARE\r\n" + 
@@ -161,10 +163,11 @@ public class OrclConnectionManager extends ConnectionManager{
 		cs.setClob(4, content);
 		logger.trace("execute");
 		cs.execute();
-		logger.info(cs.getInt(3) + " rows updated.");
+		int rowcount = cs.getInt(3);
+		logger.info(rowcount + " rows deleted.");
 		cs.close();
 		
-		logger.traceExit();
+		return logger.traceExit(rowcount);
 	}
 	
 	/**
