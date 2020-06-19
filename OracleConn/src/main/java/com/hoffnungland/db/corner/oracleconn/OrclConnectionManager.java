@@ -118,7 +118,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	 * @author manuel.m.speranza
 	 * @since 27-04-2018
 	 */
-	public void xmlSave(Document doc, String tableName, int batchSize, int commitBatchSize) {
+	public void xmlSave(Document doc, String tableName, String[] updateColumnList, int batchSize, int commitBatchSize) {
 		logger.traceEntry();
 		
 		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
@@ -128,6 +128,9 @@ public class OrclConnectionManager extends ConnectionManager{
 		}
 		if(commitBatchSize > 0) {
 			sav.setCommitBatch(commitBatchSize);
+		}
+		if(updateColumnList != null) {
+			sav.setUpdateColumnList(updateColumnList);
 		}
 		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
 		logger.trace("insertXML");
@@ -147,7 +150,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	 * @since 06-08-2019
 	 */
 	
-	public void xmlSave(String xml, String tableName, int batchSize, int commitBatchSize) throws IOException {
+	public void xmlSave(String xml, String tableName, String[] updateColumnList, int batchSize, int commitBatchSize) throws IOException {
 		logger.traceEntry();
 		
 		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
@@ -157,9 +160,13 @@ public class OrclConnectionManager extends ConnectionManager{
 		if(commitBatchSize > 0) {
 			sav.setCommitBatch(commitBatchSize);
 		}
+		if(updateColumnList != null) {
+			sav.setUpdateColumnList(updateColumnList);
+		}
 		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		logger.trace("insertXML");
 		sav.insertXML(xml);
-		
+		logger.trace("close");
 		sav.close();
 		
 		logger.traceExit();
@@ -212,6 +219,76 @@ public class OrclConnectionManager extends ConnectionManager{
 		
 		logger.traceExit();
 	}
-
+	
+	
+	/**
+	 * Straight invoke of DBMS_XMLSAVE
+	 * @param doc the xml to update
+	 * @param tableName the target table name
+	 * @author manuel.m.speranza
+	 * @since 19-06-2020
+	 */
+	public void xmlUpdate(Document doc, String tableName, String[] keyColumnList, String[] updateColumnList, int batchSize, int commitBatchSize) {
+		logger.traceEntry();
+		
+		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
+		sav.collectTimingInfo(true);
+		if(batchSize > 0) {
+			sav.setBatchSize(batchSize);
+		}
+		if(commitBatchSize > 0) {
+			sav.setCommitBatch(commitBatchSize);
+		}
+		if(updateColumnList != null) {
+			sav.setUpdateColumnList(updateColumnList);
+		}
+		
+		sav.setKeyColumnList(keyColumnList);
+		
+		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		logger.trace("updateXML");
+		sav.updateXML(doc);
+		logger.trace("close");
+		sav.close();
+		
+		logger.traceExit();
+		
+	}
+	
+	/**
+	 * Straight invoke of DBMS_XMLSAVE
+	 * @param doc the xml to update
+	 * @param tableName the target table name
+	 * @author manuel.m.speranza
+	 * @since 19-06-2020
+	 */
+	
+	public void xmlUpdate(String xml, String tableName, String[] keyColumnList, String[] updateColumnList, int batchSize, int commitBatchSize) throws IOException {
+		logger.traceEntry();
+		
+		OracleXMLSave sav = new OracleXMLSave(this.conn, tableName);
+		if(batchSize > 0) {
+			sav.setBatchSize(batchSize);
+		}
+		if(commitBatchSize > 0) {
+			sav.setCommitBatch(commitBatchSize);
+		}
+		
+		if(updateColumnList != null) {
+			sav.setUpdateColumnList(updateColumnList);
+		}
+		
+		sav.setKeyColumnList(keyColumnList);
+		
+		sav.setDateFormat("dd/MM/yyyy HH:mm:ss");
+		logger.trace("updateXML");
+		sav.updateXML(xml);
+		
+		logger.trace("close");
+		sav.close();
+		
+		logger.traceExit();
+		
+	}
 	
 }
