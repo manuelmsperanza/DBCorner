@@ -111,6 +111,62 @@ public class OrclConnectionManager extends ConnectionManager{
 		logger.traceExit();
 	}
 	
+	public void xmlUpdate(Reader content, String tableName, String columnKey) throws SQLException {
+		logger.traceEntry();
+		
+		String plsql = "DECLARE\r\n" + 
+				"updCtx DBMS_XMLSTORE.ctxType;\r\n" + 
+				"rows NUMBER;\r\n" + 
+				//"xmlDoc CLOB := ?;\r\n" + 
+				"BEGIN\r\n" + 
+				"updCtx := DBMS_XMLSTORE.newContext(?);\r\n" + 
+				"DBMS_XMLSTORE.clearUpdateColumnList(updCtx);\r\n" +
+				"DBMS_XMLSTORE.setKeyColumn(updCtx,?);\r\n" +
+				"? := DBMS_XMLSTORE.updateXML(updCtx, ?);\r\n" + 
+				"DBMS_XMLSTORE.closeContext(updCtx);\r\n" + 
+				"END;";
+		
+		CallableStatement cs = this.conn.prepareCall(plsql);
+		cs.setString(1, tableName);
+		cs.setString(2, columnKey);
+		cs.registerOutParameter(3, Types.INTEGER);
+		cs.setClob(4, content);
+		logger.trace("execute");
+		cs.execute();
+		logger.info(cs.getInt(3) + " rows updated.");
+		cs.close();
+		
+		logger.traceExit();
+	}
+	
+	public void xmlDelete(Reader content, String tableName, String columnKey) throws SQLException {
+		logger.traceEntry();
+		
+		String plsql = "DECLARE\r\n" + 
+				"delCtx DBMS_XMLSTORE.ctxType;\r\n" + 
+				"rows NUMBER;\r\n" + 
+				//"xmlDoc CLOB := ?;\r\n" + 
+				"BEGIN\r\n" + 
+				"delCtx := DBMS_XMLSTORE.newContext(?);\r\n" + 
+				"DBMS_XMLSTORE.clearUpdateColumnList(delCtx);\r\n" +
+				"DBMS_XMLSTORE.setKeyColumn(delCtx,?);\r\n" +
+				"? := DBMS_XMLSTORE.deleteXML(delCtx, ?);\r\n" + 
+				"DBMS_XMLSTORE.closeContext(delCtx);\r\n" + 
+				"END;";
+		
+		CallableStatement cs = this.conn.prepareCall(plsql);
+		cs.setString(1, tableName);
+		cs.setString(2, columnKey);
+		cs.registerOutParameter(3, Types.INTEGER);
+		cs.setClob(4, content);
+		logger.trace("execute");
+		cs.execute();
+		logger.info(cs.getInt(3) + " rows updated.");
+		cs.close();
+		
+		logger.traceExit();
+	}
+	
 	/**
 	 * Straight invoke of DBMS_XMLSAVE
 	 * @param doc the xml to insert
