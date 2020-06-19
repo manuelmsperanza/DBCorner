@@ -9,7 +9,7 @@
 		<version>0.0.10</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
-	<version>0.0.16</version>
+	<version>0.0.17</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.6</version>
+			<version>0.0.7</version>
 		</dependency>
 		<!-- https://maven.oracle.com -->
 		<dependency>
