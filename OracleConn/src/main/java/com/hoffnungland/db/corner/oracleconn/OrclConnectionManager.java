@@ -85,6 +85,34 @@ public class OrclConnectionManager extends ConnectionManager{
 		
 	}
 	
+	public Clob getFullXmlOfQuery(String selectStm) throws SQLException{
+		logger.traceEntry();
+		
+		String plsql = "DECLARE\r\n" + 
+				"readCtx DBMS_XMLGEN.ctxType;\r\n" + 
+				"rows NUMBER;\r\n" + 
+				//"xmlDoc CLOB := ?;\r\n" + 
+				"BEGIN\r\n" + 
+				"readCtx := DBMS_XMLGEN.newContext(?);\r\n" + 
+				"DBMS_XMLGEN.SETNULLHANDLING(readCtx, DBMS_XMLGEN.NULL_ATTR);\r\n" + 
+				"? := DBMS_XMLGEN.GETXML(readCtx);\r\n" + 
+				"DBMS_XMLSTORE.closeContext(readCtx);\r\n" + 
+				"END;";
+		
+		CallableStatement cs = this.conn.prepareCall(plsql);
+		cs.setString(1, selectStm);
+		cs.registerOutParameter(2, java.sql.Types.CLOB);
+		logger.trace("execute");
+		cs.execute();		
+		Clob content = cs.getClob(2);
+		if(cs.wasNull()){
+			content = null;
+		}
+		cs.close();
+		
+		return logger.traceExit(content);
+	}
+	
 	public int xmlSave(Reader content, String tableName) throws SQLException {
 		logger.traceEntry();
 		
@@ -123,6 +151,41 @@ public class OrclConnectionManager extends ConnectionManager{
 				"updCtx := DBMS_XMLSTORE.newContext(?);\r\n" + 
 				"DBMS_XMLSTORE.clearUpdateColumnList(updCtx);\r\n" +
 				"DBMS_XMLSTORE.setKeyColumn(updCtx,?);\r\n" +
+				"? := DBMS_XMLSTORE.updateXML(updCtx, ?);\r\n" + 
+				"DBMS_XMLSTORE.closeContext(updCtx);\r\n" + 
+				"END;";
+		
+		CallableStatement cs = this.conn.prepareCall(plsql);
+		cs.setString(1, tableName);
+		cs.setString(2, columnKey);
+		cs.registerOutParameter(3, Types.INTEGER);
+		cs.setClob(4, content);
+		logger.trace("execute");
+		cs.execute();
+		int rowcount = cs.getInt(3);
+		logger.info(rowcount + " rows updated.");
+		cs.close();
+		
+		return logger.traceExit(rowcount);
+	}
+	
+	public int xmlFullUpdate(Reader content, String tableName, String columnKey) throws SQLException {
+		logger.traceEntry();
+		
+		String plsql = "DECLARE\r\n" + 
+				"updCtx DBMS_XMLSTORE.ctxType;\r\n" + 
+				"rows NUMBER;\r\n" + 
+				"tablename VARCHAR2(30);\r\n" +
+				"keyColumn VARCHAR2(30);\r\n" + 
+				"BEGIN\r\n" +
+				"tablename := ?;" + 
+				"updCtx := DBMS_XMLSTORE.newContext(tablename);\r\n" + 
+				"DBMS_XMLSTORE.clearUpdateColumnList(updCtx);\r\n" +
+				"keyColumn := ?;\r\n" + 
+				"DBMS_XMLSTORE.setKeyColumn(updCtx,keyColumn);\r\n" +
+				"for cur_col in (select column_name from cols where table_name = tablename and column_name <> keyColumn) loop\r\n" + 
+				"DBMS_XMLSTORE.setUpdateColumn(updCtx, cur_col.column_name);\r\n" +
+				"end loop;\r\n" +
 				"? := DBMS_XMLSTORE.updateXML(updCtx, ?);\r\n" + 
 				"DBMS_XMLSTORE.closeContext(updCtx);\r\n" + 
 				"END;";
