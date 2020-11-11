@@ -6,10 +6,10 @@
 	<parent>
 		<groupId>com.hoffnungland</groupId>
 		<artifactId>DBCorner</artifactId>
-		<version>0.0.10</version>
+		<version>0.0.11</version>
 	</parent>
 	<artifactId>OracleConn</artifactId>
-	<version>0.0.18</version>
+	<version>0.0.19</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>DBConn</artifactId>
-			<version>0.0.7</version>
+			<version>0.0.8</version>
 		</dependency>
 		<!-- https://maven.oracle.com -->
 		<dependency>
