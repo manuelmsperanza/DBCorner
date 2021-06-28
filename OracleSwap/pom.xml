@@ -4,12 +4,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>DBCorner</artifactId>
+		<artifactId>dbcorner</artifactId>
 		<groupId>com.hoffnungland</groupId>
 		<version>0.0.11</version>
 	</parent>
 	<groupId>com.hoffnungland</groupId>
-	<artifactId>OracleSwap</artifactId>
+	<artifactId>oracleswap</artifactId>
 	<version>0.0.6</version>
 	<name>OracleSwap</name>
 	<build>
@@ -60,7 +60,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
-			<artifactId>OracleConn</artifactId>
+			<artifactId>oracleconn</artifactId>
 			<version>0.0.19</version>
 		</dependency>
 	</dependencies>

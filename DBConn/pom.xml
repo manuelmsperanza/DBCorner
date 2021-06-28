@@ -4,14 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.hoffnungland</groupId>
-    <artifactId>DBCorner</artifactId>
+    <artifactId>dbcorner</artifactId>
     <version>0.0.11</version>
   </parent>
-  <artifactId>DBConn</artifactId>
+  <artifactId>dbconn</artifactId>
   <name>DBConn</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
   <version>0.0.8</version>
 </project>

@@ -2,12 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.hoffnungland</groupId>
-	<artifactId>DBCorner</artifactId>
+	<artifactId>dbcorner</artifactId>
 	<version>0.0.11</version>
 	<packaging>pom</packaging>
 	<name>DBCorner</name>
-	<url>http://maven.apache.org</url>
-		<scm>
+	<url>http://hoffnunland.com</url>
+	<distributionManagement>
+		<repository>
+			<id>manuelmsperanza.github</id>
+			<name>GitHub manuelmsperanza Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/manuelmsperanza/DBCorner</url>
+		</repository>
+	</distributionManagement>
+	<scm>
 		<connection>scm:git:https://github.com/manuelmsperanza/DBCorner.git</connection>
 		<developerConnection>scm:git:git@github.com:manuelmsperanza/DBCorner.git</developerConnection>     
 		<tag>HEAD</tag>
@@ -140,7 +147,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
-			<artifactId>Log4j</artifactId>
+			<artifactId>log4j</artifactId>
 			<version>1.0.9</version>
 		</dependency>
 	</dependencies>
