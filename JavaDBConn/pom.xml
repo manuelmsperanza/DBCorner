@@ -5,10 +5,10 @@
 	
 	<parent>
 		<groupId>com.hoffnungland</groupId>
-		<artifactId>DBCorner</artifactId>
+		<artifactId>dbcorner</artifactId>
 		<version>0.0.11</version>
 	</parent>
-	<artifactId>JavaDBConn</artifactId>
+	<artifactId>javadbconn</artifactId>
 	<name>JavaDBConn</name>
 	<version>0.0.12</version>
 	<url>http://maven.apache.org</url>
@@ -19,7 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
-			<artifactId>DBConn</artifactId>
+			<artifactId>dbconn</artifactId>
 			<version>0.0.8</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
