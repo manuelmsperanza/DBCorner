@@ -30,9 +30,9 @@ import org.xml.sax.SAXException;
 
 import com.hoffnungland.db.corner.oracleconn.OrclConnectionManager;
 
-public class TestInventoryGroupExport {
+public class InventoryGroupExport {
 
-	private static final Logger logger = LogManager.getLogger(TestInventoryGroupExport.class);
+	private static final Logger logger = LogManager.getLogger(InventoryGroupExport.class);
 	private static final String ls = System.getProperty("line.separator");
 	
 	public static void main( String[] args )
