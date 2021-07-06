@@ -1,5 +1,9 @@
-#Create a new project
-mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=JavaDBConn -Dpackage="com.hoffnungland.db.corner.javadbconn" -Dversion="0.0.1-SNAPSHOT"
+# JavaDBConn
+
+The project extends the DBConn functionalities, providing the Derby DB implementation.
+
+## Create a new project
+	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=JavaDBConn -Dpackage="com.hoffnungland.db.corner.javadbconn" -Dversion="0.0.1-SNAPSHOT"
 #Build settings
 ##Remove junit:junit:3.8.1
 

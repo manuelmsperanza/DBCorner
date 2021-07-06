@@ -1,12 +1,16 @@
-#Create a new project
-mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=DBCorner -Dpackage="com.hoffnungland.db.corner" -Dversion="0.0.1-SNAPSHOT"
-#Build settings
-## Delete the src directory
-## Change the package type
+# DBCorner
+
+Provide wrapper for different database implementation.
+
+## Create a new project
+	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=DBCorner -Dpackage="com.hoffnungland.db.corner" -Dversion="0.0.1-SNAPSHOT"
+## Build settings
+### Delete the src directory
+### Change the package type
 
 	<packaging>pom</packaging>
 
-##Add prerequisites
+### Add prerequisites
 
 	<prerequisites>
 		<maven>3.0.5</maven>
@@ -20,7 +24,7 @@ Update to java 1.8<br>
 		<java.target.version>1.8</java.target.version>
 	</properties>
 
-##Configure the plugins
+### Configure the plugins
 	
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
@@ -93,9 +97,9 @@ Update to java 1.8<br>
 		</plugins>
 	</build>
 
-#Relationship
-##Add the dependencies
-###Instruction to encrypt the password on maven settings.xml
+## Relationship
+### Add the dependencies
+#### Instruction to encrypt the password on maven settings.xml
 [Encryption guide](http://maven.apache.org/guides/mini/guide-encryption.html)<br>
 Add log4j and update jUnit<br>
 
@@ -133,7 +137,7 @@ Add log4j and update jUnit<br>
 		</dependency>
 	</dependencies>
 
-#add .gitignore to mandatory empty directory
+# add .gitignore to mandatory empty directory
 	# Ignore everything in this directory
 	*
 	# Except this file
