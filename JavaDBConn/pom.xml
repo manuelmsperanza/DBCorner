@@ -4,11 +4,11 @@
 	<parent>
 		<groupId>com.hoffnungland</groupId>
 		<artifactId>dbcorner</artifactId>
-		<version>0.0.12-SNAPSHOT</version>
+		<version>0.0.12</version>
 	</parent>
 	<artifactId>javadbconn</artifactId>
 	<name>JavaDBConn</name>
-	<version>0.0.12-SNAPSHOT</version>
+	<version>0.0.12</version>
 	<url>http://maven.apache.org</url>
 	<modelVersion>4.0.0</modelVersion>
 	<properties>
