@@ -277,7 +277,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	
 	/**
 	 * Straight invoke of DBMS_XMLSAVE
-	 * @param doc the xml to insert
+	 * @param xml the xml to insert
 	 * @param tableName the target table name
 	 * @author manuel.m.speranza
 	 * @since 06-08-2019
@@ -390,7 +390,7 @@ public class OrclConnectionManager extends ConnectionManager{
 	
 	/**
 	 * Straight invoke of DBMS_XMLSAVE
-	 * @param doc the xml to update
+	 * @param xml the xml to update
 	 * @param tableName the target table name
 	 * @author manuel.m.speranza
 	 * @since 19-06-2020
