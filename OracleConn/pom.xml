@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.hoffnungland</groupId>
 		<artifactId>dbcorner</artifactId>
-		<version>0.0.11-SNAPSHOT</version>
+		<version>0.0.11</version>
 	</parent>
 	<artifactId>oracleconn</artifactId>
-	<version>0.0.19-SNAPSHOT</version>
+	<version>0.0.19</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -236,6 +234,6 @@
 		</dependency>
 	</dependencies>
 	<scm>
-		<tag>OracleConn-0.0.9</tag>
+		<tag>dbcorner-0.0.11</tag>
 	</scm>
 </project>
