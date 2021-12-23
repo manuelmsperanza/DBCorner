@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.hoffnungland</groupId>
   <artifactId>dbcorner</artifactId>
-  <version>0.0.16</version>
+  <version>0.0.17-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>DBCorner</name>
   <url>http://hoffnunland.com</url>
@@ -17,7 +17,7 @@
   <scm>
     <connection>scm:git:https://github.com/manuelmsperanza/DBCorner.git</connection>
     <developerConnection>scm:git:git@github.com:manuelmsperanza/DBCorner.git</developerConnection>
-    <tag>dbcorner-0.0.16</tag>
+    <tag>dbcorner-0.0.11</tag>
   </scm>
   <issueManagement>
     <system>GitHub</system>
