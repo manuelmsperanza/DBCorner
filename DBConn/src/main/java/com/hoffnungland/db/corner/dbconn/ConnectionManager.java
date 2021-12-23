@@ -90,7 +90,7 @@ public class ConnectionManager {
 
 		logger.traceEntry();
 		if (ConnectionManager.myDriver == null){
-			throw new NullPointerException("Oracle driver not registered.");
+			throw new NullPointerException("Driver not registered.");
 		}
 
 		if (this.conn != null){
