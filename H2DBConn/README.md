@@ -60,6 +60,10 @@ or
 
 	mvn package assembly:single
 
+### Come back to the previous commit
+
+	git switch -
+
 ### Come back to the main branch
 	
 	git checkout main
