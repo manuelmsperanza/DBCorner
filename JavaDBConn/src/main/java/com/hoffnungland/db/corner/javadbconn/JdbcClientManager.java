@@ -5,9 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 
-public class JdbClientManager extends JdbConnectionManager {
+public class JdbcClientManager extends JdbcConnectionManager {
 	
-	private static final Logger logger = LogManager.getLogger(JdbClientManager.class);
+	private static final Logger logger = LogManager.getLogger(JdbcClientManager.class);
 	
 	static {
 		ConnectionManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());

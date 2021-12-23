@@ -22,7 +22,7 @@ public class App
 		//connectionProps.put("derby.language.sequence.preallocator", "1");
 
 		String dbms = "derby";
-		String dbName = "db/testJavaDBConn";
+		String dbName = "~/db/testJavaDBConn";
 		//java -jar %DERBY_HOME%\lib\derbyrun.jar ij
 		//CONNECT 'jdbc:derby:C:/eclipse-jee-mars-2-win32-x86_64/workspace/DBCorner/JavaDBConn/testJavaDBConn jdbc:derby:testJavaDBConn;create=true';
 		//DISCONNECT;
@@ -31,9 +31,9 @@ public class App
 		String urlString = "jdbc:" + dbms + ":" + dbName;
 		connectionProps.put("URL", urlString);
 		
-		JdbLocalManager dbManager = null;
+		JdbcLocalManager dbManager = null;
 		try {
-			dbManager = new JdbLocalManager();
+			dbManager = new JdbcLocalManager();
 			dbManager.connect(urlString, connectionProps);
 			
 			long nOrdAmmVal = dbManager.getNextVal("DUMMY_SEQ");

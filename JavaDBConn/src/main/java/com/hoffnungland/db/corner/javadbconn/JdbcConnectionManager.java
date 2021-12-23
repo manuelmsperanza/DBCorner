@@ -16,8 +16,8 @@ import com.hoffnungland.db.corner.dbconn.ConnectionManager;
  * @version 0.1
  */
 
-public class JdbConnectionManager extends ConnectionManager {
-	private static final Logger logger = LogManager.getLogger(JdbConnectionManager.class);
+public class JdbcConnectionManager extends ConnectionManager {
+	private static final Logger logger = LogManager.getLogger(JdbcConnectionManager.class);
 
 	
 	/**
