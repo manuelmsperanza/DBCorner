@@ -27,6 +27,43 @@ The project extends the DBConn functionalities, providing the Derby DB implement
 		</dependency>
 	</dependencies>
 
+
+## Configure the pom.xml
+
+	<plugin>
+		<artifactId>maven-assembly-plugin</artifactId>
+		<configuration>
+			<descriptorRefs>
+				<descriptorRef>jar-with-dependencies</descriptorRef>
+			</descriptorRefs>
+			<appendAssemblyId>false</appendAssemblyId>
+			<finalName>${project.name}</finalName>
+			<archive>
+				<manifest>
+					<mainClass>com.hoffnungland.db.corner.h2dbconn.App</mainClass>
+				</manifest>
+			</archive>
+		</configuration>
+	</plugin>
+
+## Execute the maven assembly single
+
+### Get the last tag version
+	
+	git checkout <<tag name>>
+
+### Create the jar with dependencies
+
+	mvn install assembly:single
+	
+or 
+
+	mvn package assembly:single
+
+### Come back to the main branch
+	
+	git checkout main
+
 #add .gitignore to mandatory empty directory
 	# Ignore everything in this directory
 	*
