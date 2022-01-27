@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>dbcorner</artifactId>
 		<groupId>com.hoffnungland</groupId>
-		<version>0.0.21</version>
+		<version>0.0.22-SNAPSHOT</version>
 	</parent>
 	<groupId>com.hoffnungland</groupId>
 	<artifactId>oracleswap</artifactId>
-	<version>0.0.16</version>
+	<version>0.0.17-SNAPSHOT</version>
 	<name>OracleSwap</name>
 	<build>
 		<pluginManagement>
@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>oracleconn</artifactId>
-			<version>0.0.30</version>
+			<version>0.0.31-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
