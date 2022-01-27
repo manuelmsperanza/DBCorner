@@ -13,6 +13,7 @@
   
   	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jarMainClass>com.hoffnungland.startH2db.App</jarMainClass>
 	</properties>
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
@@ -44,7 +45,7 @@
 					<finalName>${project.name}</finalName>
 					<archive>
 						<manifest>
-							<mainClass>com.hoffnungland.db.corner.h2dbconn.App</mainClass>
+							<mainClass>${jarMainClass}</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
