@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.hoffnungland</groupId>
     <artifactId>dbcorner</artifactId>
-    <version>0.0.23</version>
+    <version>0.0.24-SNAPSHOT</version>
   </parent>
   <artifactId>dbconn</artifactId>
   <name>DBConn</name>
@@ -13,5 +13,5 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
-  <version>0.0.19</version>
+  <version>0.0.20-SNAPSHOT</version>
 </project>
