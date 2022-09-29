@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.hoffnungland</groupId>
 		<artifactId>dbcorner</artifactId>
-		<version>0.0.23-SNAPSHOT</version>
+		<version>0.0.26-SNAPSHOT</version>
 	</parent>
 	<artifactId>javadbconn</artifactId>
 	<name>JavaDBConn</name>
@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>dbconn</artifactId>
-			<version>0.0.19-SNAPSHOT</version>
+			<version>0.0.22-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
 		<dependency>
