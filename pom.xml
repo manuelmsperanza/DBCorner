@@ -155,8 +155,8 @@
   <modules>
     <module>DBConn</module>
     <module>OracleConn</module>
-    <!--module>JavaDBConn</module-->
     <module>OracleSwap</module>
     <module>H2DBConn</module>
+    <module>JavaDBConn</module>
   </modules>
 </project>
