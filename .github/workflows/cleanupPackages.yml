@@ -22,38 +22,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Delete Package Versions com.hoffnungland.dbcorner
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: 'com.hoffnungland.dbcorner'
-          min-versions-to-keep: 1
+      #- env:
+          #EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        #run: |
+          #echo $EVENT_CONTEXT
 
-      - name: Delete Package Versions com.hoffnungland.dbconn
+      - name: Delete Package Versions ${{ github.event.registry_package.name }}
         uses: actions/delete-package-versions@v3
         with:
-          package-name: 'com.hoffnungland.dbconn'
-          min-versions-to-keep: 1
-          
-      - name: Delete Package Versions com.hoffnungland.h2dbconn
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: 'com.hoffnungland.h2dbconn'
-          min-versions-to-keep: 1
-          
-      - name: Delete Package Versions com.hoffnungland.javadbconn
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: 'com.hoffnungland.javadbconn'
-          min-versions-to-keep: 1
-          
-      - name: Delete Package Versions com.hoffnungland.oracleconn
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: 'com.hoffnungland.oracleconn'
-          min-versions-to-keep: 1
-          
-      - name: Delete Package Versions com.hoffnungland.oracleswap
-        uses: actions/delete-package-versions@v3
-        with:
-          package-name: 'com.hoffnungland.oracleswap'
+          package-name: ${{ github.event.registry_package.name }}
           min-versions-to-keep: 1
