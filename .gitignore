@@ -1,6 +1,10 @@
 *.class
 *.jar
 *.log
-
+**/.settings
+**/.vscode
+**/.classpath
+**/.factorypath
+**/.project
 **/target/**/
 **/logs/**/
