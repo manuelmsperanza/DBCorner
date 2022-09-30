@@ -9,9 +9,5 @@
   <artifactId>dbconn</artifactId>
   <name>DBConn</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  
   <version>0.0.23-SNAPSHOT</version>
 </project>
