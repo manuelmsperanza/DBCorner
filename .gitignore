@@ -7,5 +7,6 @@
 **/.classpath
 **/.factorypath
 **/.project
-**/target/**/
+**/bin/**/
 **/logs/**/
+**/target/**/
