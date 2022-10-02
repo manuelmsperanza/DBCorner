@@ -135,6 +135,13 @@
       </plugin>
     </plugins>
   </build>
+  <modules>
+    <module>DBConn</module>
+    <module>OracleConn</module>
+    <module>OracleSwap</module>
+    <module>H2DBConn</module>
+    <!--module>JavaDBConn</module-->
+  </modules>
   <dependencies>
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
@@ -149,11 +156,4 @@
       <version>1.0.20</version>
     </dependency>
   </dependencies>
-  <modules>
-    <module>DBConn</module>
-    <module>OracleConn</module>
-    <module>OracleSwap</module>
-    <module>H2DBConn</module>
-    <!--module>JavaDBConn</module-->
-  </modules>
 </project>
