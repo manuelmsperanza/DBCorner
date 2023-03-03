@@ -4,10 +4,10 @@
 	<parent>
 		<groupId>com.hoffnungland</groupId>
 		<artifactId>dbcorner</artifactId>
-		<version>0.0.28</version>
+		<version>0.0.29-SNAPSHOT</version>
 	</parent>
 	<artifactId>oracleconn</artifactId>
-	<version>0.0.37</version>
+	<version>0.0.38-SNAPSHOT</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -156,7 +156,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>dbconn</artifactId>
-			<version>0.0.24</version>
+			<version>0.0.25-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 		<dependency>
