@@ -41,7 +41,7 @@ public class ConnectionManager {
 			DriverManager.registerDriver(ConnectionManager.myDriver);
 		} catch (SQLException e) {
 			ConnectionManager.myDriver = null;
-			logger.error("Error occurred during oracle driver registration.", e);
+			logger.error("Error occurred during driver registration.", e);
 		}finally{
 
 			logger.traceExit();
