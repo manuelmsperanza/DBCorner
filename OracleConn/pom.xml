@@ -7,7 +7,7 @@
 		<version>0.0.34-SNAPSHOT</version>
 	</parent>
 	<artifactId>oracleconn</artifactId>
-	<version>21.9.0.43-SNAPSHOT</version>
+	<version>23.5.0.24.07.43-SNAPSHOT</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
 	<build>
@@ -162,13 +162,13 @@
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
 		    <artifactId>ojdbc8</artifactId>
-		    <version>21.9.0.0</version>
+		    <version>23.5.0.24.07</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ucp -->
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
 		    <artifactId>ucp</artifactId>
-		    <version>21.9.0.0</version>
+		    <version>23.5.0.24.07</version>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
@@ -210,11 +210,11 @@
 			<artifactId>xmlmesg</artifactId>
 			<version>10.1.0.2.0</version>
 		</dependency>
-		<dependency>
+		<!--dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xmlparserv2</artifactId>
 			<version>10.1.0.2.0</version>
-		</dependency>
+		</dependency-->
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xschema</artifactId>
