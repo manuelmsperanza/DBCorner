@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 
+/**
+ * Manages JDBC client connections.
+ */
 public class JdbcClientManager extends JdbcConnectionManager {
 	
 	private static final Logger logger = LogManager.getLogger(JdbcClientManager.class);

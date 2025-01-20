@@ -8,10 +8,17 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Creates a database and sets properties.
+ */
 public class CreateDB {
 
 	private static final Logger logger = LogManager.getLogger(CreateDB.class);
 	
+	/**
+	 * Main method to create the database.
+	 * @param args Command line arguments
+	 */
 	public static void main(String[] args) {
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", "");

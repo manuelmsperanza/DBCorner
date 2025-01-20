@@ -14,6 +14,10 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Caches SQL statements for reuse.
+ * @param <T> Type of the statement (PreparedStatement or CallableStatement)
+ */
 public class StatementsCache<T extends PreparedStatement> {
 	
 	private static final Logger logger = LogManager.getLogger(StatementsCache.class);
@@ -24,6 +28,11 @@ public class StatementsCache<T extends PreparedStatement> {
 	
 	HashMap<String, StatementCached<T>> cache = new HashMap<String, StatementCached<T>>();
 	
+	/**
+	 * Constructor to initialize the cache with a connection and statement type.
+	 * @param conn Database connection
+	 * @param typeParameterClass Class of the statement type
+	 */
 	public StatementsCache(Connection conn, Class<T> typeParameterClass) {
 		super();
         this.typeParameterClass = typeParameterClass;
@@ -36,6 +45,9 @@ public class StatementsCache<T extends PreparedStatement> {
 		super.finalize();
 	}
 
+	/**
+	 * Closes all cached statements and clears the cache.
+	 */
 	public void close(){
 		logger.traceEntry();
 		for (StatementCached<T> curStm : cache.values()){

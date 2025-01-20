@@ -27,8 +27,8 @@ public class OracleUConnectionPoolManager {
 	/**
 	 * Actually connect to the database. Disconnect the previous connection if open.
 	 * @param connectionPropertyPath the path of the property file containing the connection string
-	 * @throws IOException
-	 * @throws SQLException
+	 * @throws IOException if an I/O error occurs
+	 * @throws SQLException if a database access error occurs
 	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
@@ -50,7 +50,7 @@ public class OracleUConnectionPoolManager {
 	 * Actually connect to the Oracle database. Disconnect the previous connection if open.
 	 * @param URL The jdbc:oracle:thin:@ connection URL
 	 * @param connectionPropsFile The properties file containing at least user, password, minPoolSize and maxPoolSize
-	 * @throws SQLException
+	 * @throws SQLException if a database access error occurs
 	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
@@ -78,7 +78,9 @@ public class OracleUConnectionPoolManager {
 	}
 	
 	/**
-	 * @throws SQLException 
+	 * Get a connection from the pool.
+	 * @return an OrclConnectionManager instance
+	 * @throws SQLException if a database access error occurs
 	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
@@ -96,7 +98,7 @@ public class OracleUConnectionPoolManager {
 	
 	
 	/**
-	 * 
+	 * Get the minimum pool size.
 	 * @return the minimum pool size
 	 * @author manuel.m.speranza
 	 * @since 21-02-2018
@@ -106,7 +108,7 @@ public class OracleUConnectionPoolManager {
 	}
 	
 	/**
-	 * 
+	 * Get the maximum pool size.
 	 * @return the maximum pool size
 	 * @author manuel.m.speranza
 	 * @since 21-02-2018
@@ -116,7 +118,7 @@ public class OracleUConnectionPoolManager {
 	}
 	
 	/**
-	 * 
+	 * Get the available connections count.
 	 * @return the available connections count
 	 * @author manuel.m.speranza
 	 * @since 21-02-2018

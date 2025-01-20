@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Represents a cached SQL statement.
+ * @param <T> Type of the statement (PreparedStatement or CallableStatement)
+ */
 public class StatementCached<T extends PreparedStatement> {
 	
 	private static final Logger logger = LogManager.getLogger(StatementCached.class);
@@ -16,7 +20,8 @@ public class StatementCached<T extends PreparedStatement> {
 	
 	
 	/**
-	 * @return the query name
+	 * Gets the name of the statement.
+	 * @return Statement name
 	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
@@ -26,7 +31,8 @@ public class StatementCached<T extends PreparedStatement> {
 	}
 	
 	/**
-	 * @param name
+	 * Sets the name of the statement.
+	 * @param name Statement name
 	 * @author manuel.m.speranza
 	 * @since 21-09-2016
 	 */
@@ -35,7 +41,8 @@ public class StatementCached<T extends PreparedStatement> {
 	}
 
 	/**
-	 * @return the SQL statement
+	 * Gets the SQL statement.
+	 * @return SQL statement
 	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
@@ -44,7 +51,8 @@ public class StatementCached<T extends PreparedStatement> {
 	}
 	
 	/**
-	 * @param stm
+	 * Sets the SQL statement.
+	 * @param stm SQL statement
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
@@ -53,7 +61,7 @@ public class StatementCached<T extends PreparedStatement> {
 	}
 	
 	/**
-	 * Close the current statement
+	 * Closes the current statement.
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017

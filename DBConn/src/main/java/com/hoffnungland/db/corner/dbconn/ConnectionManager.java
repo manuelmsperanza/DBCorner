@@ -15,7 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Manage the connection with the Oracle database and the statements.
+ * Manages the connection with the database and the statements.
  * @author manuel.m.speranza
  * @since 31-08-2016
  * @version 0.2
@@ -33,6 +33,10 @@ public class ConnectionManager {
 	protected StatementsCache<PreparedStatement> prepStmsJnt;
 	protected StatementsCache<CallableStatement> cllbStms;
 
+	/**
+	 * Registers the database driver.
+	 * @param myDriver Database driver
+	 */
 	protected static synchronized void registerDriver(Driver myDriver){
 		logger.traceEntry();
 		ConnectionManager.myDriver = myDriver;
@@ -56,8 +60,8 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Actually connect to the database. Disconnect the previous connection if open.
-	 * @param connectionPropertyPath the path of the property file containing the connection string
+	 * Connects to the database using the properties file.
+	 * @param connectionPropertyPath Path to the properties file
 	 * @throws IOException
 	 * @throws SQLException
 	 * @author manuel.m.speranza
@@ -78,14 +82,13 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Actually connect to the Oracle database. Disconnect the previous connection if open.
-	 * @param URL The jdbc:oracle:thin:@ connection URL
-	 * @param connectionPropsFile The properties file containing at least user and password
+	 * Connects to the database using the URL and properties.
+	 * @param URL Database URL
+	 * @param connectionPropsFile Properties file
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 09-05-2017
 	 */
-
 	public void connect(String URL, Properties connectionPropsFile) throws SQLException{
 
 		logger.traceEntry();
@@ -103,8 +106,8 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * 
-	 * @param conn
+	 * Sets the database connection.
+	 * @param conn Database connection
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 20-02-2018
@@ -121,11 +124,10 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Clear all cached statements and disconnect from the Oracle database.
+	 * Disconnects from the database and clears all cached statements.
 	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
-
 	public void disconnect(){
 
 		logger.traceEntry();
@@ -147,7 +149,7 @@ public class ConnectionManager {
 		logger.traceExit();
 	}
 	/**
-	 * Manage the transaction: execute commit
+	 * Commits the current transaction.
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 08-05-2017
@@ -158,7 +160,7 @@ public class ConnectionManager {
 		logger.traceExit();
 	}
 	/**
-	 * Manage the transaction: execute rollback
+	 * Rolls back the current transaction.
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 08-05-2017
@@ -170,9 +172,9 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Retrieve the prepared statement. The first time create the PreparedStatement instance associated to the queryId.  
-	 * @param queryId corresponds to the relative or absolute path of file containing the SQL statement.
-	 * @return The cached prepared statement with result-set reseted
+	 * Retrieves the prepared statement from the cache or loads it from a file.
+	 * @param queryId File path of the SQL statement
+	 * @return Cached prepared statement
 	 * @throws SQLException
 	 * @throws IOException
 	 * @author manuel.m.speranza
@@ -187,9 +189,9 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Retrieve the callable statement. The first time create the CallableStatement instance associated to the queryId.  
-	 * @param queryId corresponds to the relative or absolute path of file containing the SQL statement.
-	 * @return The cached callable statement with result-set reseted 
+	 * Retrieves the callable statement from the cache or loads it from a file.
+	 * @param queryId File path of the SQL statement
+	 * @return Cached callable statement
 	 * @throws SQLException
 	 * @throws IOException
 	 * @author manuel.m.speranza
@@ -203,9 +205,9 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Execute the plain query without parameters in where condition and save the ResultSet within.
-	 * @param queryId corresponds to the relative or absolute path of file containing the SQL statement.
-	 * @return The cached prepared statement with the new result-set value
+	 * Executes the plain query without parameters and returns the cached statement.
+	 * @param queryId File path of the SQL statement
+	 * @return Cached prepared statement with result set
 	 * @throws SQLException
 	 * @throws IOException 
 	 * @author manuel.m.speranza
@@ -223,16 +225,14 @@ public class ConnectionManager {
 
 
 	/**
-	 * Execute the input query without parameters and build a new plain statement.
-	 * The generated statement (non-cached) is executed.
-	 * @param queryId corresponds to the relative or absolute path of file containing the SQL statement.
-	 * @return An instance of type cached prepared statement (but non-actually cached in a list) with the new result-set value.
+	 * Generates and executes the query with junction and returns the cached statement.
+	 * @param queryId File path of the SQL statement
+	 * @return Cached prepared statement with result set
 	 * @throws SQLException
 	 * @throws IOException
 	 * @author manuel.m.speranza 
 	 * @since 10-11-2016
 	 */
-
 	public StatementCached<PreparedStatement> generateAndExecuteQueryWithJunction(String queryId) throws SQLException, IOException{
 
 		logger.traceEntry();
@@ -274,10 +274,9 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Execute the input query without parameters and build a new plain statement.
-	 * The generated statement is cached and then executed.
-	 * @param queryId corresponds to the relative or absolute path of file containing the SQL statement.
-	 * @return A cached prepared statement with the new result-set value.
+	 * Executes the query with junction and returns the cached statement.
+	 * @param queryId File path of the SQL statement
+	 * @return Cached prepared statement with result set
 	 * @throws SQLException
 	 * @throws IOException
 	 * @author manuel.m.speranza
@@ -331,9 +330,9 @@ public class ConnectionManager {
 		return logger.traceExit(prepStm);
 	}
 	/**
-	 * Build a statement to invoke
-	 * @param invokeStm
-	 * @return A non-cached callable statement.
+	 * Builds a callable statement to invoke.
+	 * @param invokeStm SQL statement to invoke
+	 * @return Callable statement
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 22-05-2017
@@ -343,9 +342,9 @@ public class ConnectionManager {
 		return logger.traceExit(this.conn.prepareCall(invokeStm));
 	}
 	/**
-	 * Build a statement
-	 * @param tableStm
-	 * @return A non-cached prepared statement.
+	 * Builds a prepared statement.
+	 * @param tableStm SQL statement
+	 * @return Prepared statement
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 22-05-2017
@@ -356,16 +355,14 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * Build a statement
-	 * The generated statement is cached and then executed.
-	 * @param queryId corresponds to the table name to extract.
-	 * @param tableStm the statement 
-	 * @return A cached prepared statement with the new result-set value.
+	 * Prepares a query and caches the statement.
+	 * @param queryId Query identifier
+	 * @param tableStm SQL statement
+	 * @return Cached prepared statement
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 12-05-2017
 	 */
-	
 	public StatementCached<PreparedStatement> prepareQuery(String queryId, String tableStm) throws SQLException{
 		logger.traceEntry();
 		StatementCached<PreparedStatement> prepStm = this.prepStms.cache.get(queryId);
@@ -384,11 +381,10 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * Build a statement to invoke.
-	 * The generated statement is cached and then executed.
-	 * @param queryId
-	 * @param invokeStm
-	 * @return
+	 * Prepares an invocation and caches the statement.
+	 * @param queryId Query identifier
+	 * @param invokeStm SQL statement to invoke
+	 * @return Cached callable statement
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 12-05-2017
@@ -411,16 +407,14 @@ public class ConnectionManager {
 	} 
 	
 	/**
-	 * Build a SELECT * FROM statement
-	 * The generated statement is cached and then executed.
-	 * @param queryId corresponds to the table name to extract.
-	 * @param tableStm the statement 
-	 * @return A cached prepared statement with the new result-set value.
+	 * Prepares a full table query and caches the statement.
+	 * @param queryId Query identifier
+	 * @param tableStm SQL statement
+	 * @return Cached prepared statement
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 11-05-2017
 	 */
-	
 	public StatementCached<PreparedStatement> prepareFullTableQuery(String queryId, String tableStm) throws SQLException{
 		logger.traceEntry();
 				
@@ -430,11 +424,10 @@ public class ConnectionManager {
 	}
 	
 	/**
-	 * Build and execute a SELECT * FROM statement
-	 * The generated statement is cached and then executed.
-	 * @param queryId corresponds to the table name to extract.
-	 * @param tableStm the statement you append to SELECT * FROM
-	 * @return A cached prepared statement with the new result-set value.
+	 * Executes a full table query and returns the cached statement.
+	 * @param queryId Query identifier
+	 * @param tableStm SQL statement
+	 * @return Cached prepared statement with result set
 	 * @throws SQLException
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017

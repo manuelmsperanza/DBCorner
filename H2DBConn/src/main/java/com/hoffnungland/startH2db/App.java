@@ -7,10 +7,17 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Main application class for starting H2 database.
+ */
 public class App 
 {
 	private static final Logger logger = LogManager.getLogger(App.class);
 	
+    /**
+     * Main method to start the H2 database.
+     * @param args Command line arguments
+     */
     public static void main( String[] args )
     {
     	logger.traceEntry();

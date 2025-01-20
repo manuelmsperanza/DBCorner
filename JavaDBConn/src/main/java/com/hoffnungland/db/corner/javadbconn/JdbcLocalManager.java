@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 
+/**
+ * Manage the connection with the local Derby Java database.
+ */
 public class JdbcLocalManager extends JdbcConnectionManager {
 	
 	private static final Logger logger = LogManager.getLogger(JdbcLocalManager.class);
