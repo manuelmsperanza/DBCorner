@@ -18,13 +18,16 @@ import org.xml.sax.SAXException;
 import com.hoffnungland.db.corner.oracleconn.OrclConnectionManager;
 
 /**
- * Hello world!
- *
+ * Main application class for OracleSwap.
  */
 public class App 
 {
 	private static final Logger logger = LogManager.getLogger(App.class);
 
+	/**
+	 * Main method to run the OracleSwap application.
+	 * @param args Command line arguments: SourceConnectionName TargetConnectionName TableName[ TableName]*
+	 */
 	public static void main( String[] args )
 	{
 		logger.traceEntry();
