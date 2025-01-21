@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
  * @version 0.2
  */
 
-public class ConnectionManager {
+public class ConnectionManager implements AutoCloseable {
 
 	private static final Logger logger = LogManager.getLogger(ConnectionManager.class);
 	protected static Driver myDriver;
@@ -54,9 +54,8 @@ public class ConnectionManager {
 	}
 
 	@Override
-	protected void finalize() throws Throwable {
+	public void close() {
 		this.disconnect();
-		super.finalize();
 	}
 
 	/**

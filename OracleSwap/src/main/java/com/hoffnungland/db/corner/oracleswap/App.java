@@ -40,10 +40,14 @@ public class App
 		String sourceConnectionName = args[0];
 		String targetConnectionName = args[1];
 
-		OrclConnectionManager sourceDbManager = new OrclConnectionManager();
-		OrclConnectionManager targetDbManger = new OrclConnectionManager();
+		OrclConnectionManager sourceDbManager = null;
+		OrclConnectionManager targetDbManger = null;
 
 		try {
+
+			sourceDbManager = new OrclConnectionManager();
+			targetDbManger = new OrclConnectionManager();
+
 			logger.info("Source DB Manager connecting to " + sourceConnectionName);
 			sourceDbManager.connect("./etc/connections/" + sourceConnectionName + ".properties");
 			
@@ -102,6 +106,9 @@ public class App
 		} catch (SAXException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
+			if(sourceDbManager != null)
+				sourceDbManager.closeCallableStm();
+				
 			logger.debug("sourceDbManager disconnect");
 			sourceDbManager.disconnect();
 			logger.debug("targetDbManger disconnect");
