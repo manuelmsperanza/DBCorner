@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
  * Caches SQL statements for reuse.
  * @param <T> Type of the statement (PreparedStatement or CallableStatement)
  */
-public class StatementsCache<T extends PreparedStatement> {
+public class StatementsCache<T extends PreparedStatement> implements AutoCloseable {
 	
 	private static final Logger logger = LogManager.getLogger(StatementsCache.class);
 	//private static String ls = System.getProperty("line.separator");
@@ -39,12 +39,6 @@ public class StatementsCache<T extends PreparedStatement> {
 		this.conn = conn;
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
-		this.close();
-		super.finalize();
-	}
-
 	/**
 	 * Closes all cached statements and clears the cache.
 	 */
