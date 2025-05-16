@@ -32,8 +32,8 @@ public class App
 		connectionProps.put("URL", urlString);
 		
 		H2ConnectionManager dbManager = null;
-		try {
-			dbManager = new H2ConnectionManager();
+		try{
+		    dbManager = new H2ConnectionManager();
 			dbManager.connect(urlString, connectionProps);
 			
 			CallableStatement stmSet = dbManager.getCallableStatement("ddl/tables.sql").getStm();
@@ -42,11 +42,13 @@ public class App
 			CallableStatement stmCompact = dbManager.getCallableStm("SHUTDOWN COMPACT");
 			stmCompact.execute();
 			
+			
 		} catch (SQLException | IOException e) {
 			logger.error(e.getMessage(), e);
 		}finally {
 			if(dbManager != null){
 				dbManager.disconnect();
+				dbManager.close();
 			}
 		}
 		
