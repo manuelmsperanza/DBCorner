@@ -4,11 +4,11 @@
   <parent>
     <artifactId>dbcorner</artifactId>
     <groupId>com.hoffnungland</groupId>
-    <version>0.0.37-SNAPSHOT</version>
+    <version>0.0.37</version>
   </parent>
   <groupId>com.hoffnungland</groupId>
   <artifactId>h2dbconn</artifactId>
-  <version>2.3.232.23-SNAPSHOT</version>
+  <version>2.3.232.23</version>
   <name>H2DBConn</name>
   
   	<properties>
@@ -97,7 +97,7 @@
     	<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>dbconn</artifactId>
-			<version>0.0.33-SNAPSHOT</version>
+			<version>0.0.33</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 		<dependency>
