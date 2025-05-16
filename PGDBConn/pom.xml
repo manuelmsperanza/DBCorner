@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>dbcorner</artifactId>
 		<groupId>com.hoffnungland</groupId>
-		<version>0.0.37</version>
+		<version>0.0.38-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.hoffnungland</groupId>
 	<artifactId>pgdbconn</artifactId>
-	<version>42.7.5.5</version>
+	<version>42.7.5.6-SNAPSHOT</version>
 
 	<name>PGDBConn</name>
 
@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
 			<artifactId>dbconn</artifactId>
-			<version>0.0.33</version>
+			<version>0.0.34-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
