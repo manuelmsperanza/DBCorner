@@ -17,6 +17,11 @@ public class StatementCached<T extends PreparedStatement> {
 	private String name;
 	private T stm;
 	
+	/**
+	 * Creates an empty cached statement descriptor.
+	 */
+	public StatementCached() {
+	}
 	
 	
 	/**
@@ -62,7 +67,7 @@ public class StatementCached<T extends PreparedStatement> {
 	
 	/**
 	 * Closes the current statement.
-	 * @throws SQLException
+	 * @throws SQLException if closing the statement fails
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */

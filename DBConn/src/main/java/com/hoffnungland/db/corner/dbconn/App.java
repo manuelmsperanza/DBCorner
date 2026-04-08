@@ -6,6 +6,12 @@ package com.hoffnungland.db.corner.dbconn;
 public class App 
 {
     /**
+     * Utility class.
+     */
+    private App() {
+    }
+
+    /**
      * Main method to run the application.
      * @param args Command line arguments
      */

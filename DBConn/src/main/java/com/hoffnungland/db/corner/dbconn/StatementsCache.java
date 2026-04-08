@@ -24,8 +24,14 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	//private static String ls = System.getProperty("line.separator");
 	
 	private Connection conn;
+	/**
+	 * JDBC statement type handled by this cache.
+	 */
 	final Class<T> typeParameterClass;
 	
+	/**
+	 * Cached statements keyed by query identifier.
+	 */
 	HashMap<String, StatementCached<T>> cache = new HashMap<String, StatementCached<T>>();
 	
 	/**
@@ -58,11 +64,11 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	}
 	/**
 	 * Retrieve the statement of type T from the cache using the input parameter.
-	 * If does not exist, retrieve the file and cache it as oracle prepared statement or callable statement 
+	 * If it does not exist, read the SQL file and cache the resulting prepared or callable statement.
 	 * @param queryId corresponds to the relative or absolute file path.
-	 * @return
-	 * @throws IOException
-	 * @throws SQLException
+	 * @return the cached statement associated with the supplied query identifier
+	 * @throws IOException if the SQL file cannot be read
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
@@ -90,9 +96,10 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	/**
 	 * Parse the queryFile to extract the SQL statement from the content and the name from the path. There is no validation of SQL statement.
 	 * @param queryId corresponds to the relative or absolute file path. The file must contain a valid SQL query. The file name (without extension) will be the query name.
-	 * @throws IOException
+	 * @return the cached statement metadata containing the parsed SQL and prepared statement
+	 * @throws IOException if the SQL file cannot be read
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
-	 * @throws SQLException 
 	 * @since 31-08-2016
 	 */
 	public StatementCached<T> setQueryFile(String queryId) throws IOException, SQLException {

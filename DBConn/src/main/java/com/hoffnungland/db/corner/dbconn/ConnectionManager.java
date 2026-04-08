@@ -24,14 +24,38 @@ import org.apache.logging.log4j.Logger;
 public class ConnectionManager implements AutoCloseable {
 
 	private static final Logger logger = LogManager.getLogger(ConnectionManager.class);
+	/**
+	 * Database driver registered for the current connection manager type.
+	 */
 	protected static Driver myDriver;
+	/**
+	 * Platform line separator used when composing generated SQL statements.
+	 */
 	protected static String ls = System.getProperty("line.separator");
 
+	/**
+	 * Active JDBC connection.
+	 */
 	protected Connection conn;
 
+	/**
+	 * Cache for prepared statements loaded from SQL files.
+	 */
 	protected StatementsCache<PreparedStatement> prepStms;
+	/**
+	 * Cache for prepared statements generated from junction queries.
+	 */
 	protected StatementsCache<PreparedStatement> prepStmsJnt;
+	/**
+	 * Cache for callable statements loaded from SQL files.
+	 */
 	protected StatementsCache<CallableStatement> cllbStms;
+
+	/**
+	 * Creates a connection manager with no active connection.
+	 */
+	public ConnectionManager() {
+	}
 
 	/**
 	 * Registers the database driver.
@@ -61,8 +85,8 @@ public class ConnectionManager implements AutoCloseable {
 	/**
 	 * Connects to the database using the properties file.
 	 * @param connectionPropertyPath Path to the properties file
-	 * @throws IOException
-	 * @throws SQLException
+	 * @throws IOException if the properties file cannot be read
+	 * @throws SQLException if opening the JDBC connection fails
 	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
@@ -84,7 +108,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * Connects to the database using the URL and properties.
 	 * @param URL Database URL
 	 * @param connectionPropsFile Properties file
-	 * @throws SQLException
+	 * @throws SQLException if opening the JDBC connection fails
 	 * @author manuel.m.speranza
 	 * @since 09-05-2017
 	 */
@@ -107,7 +131,7 @@ public class ConnectionManager implements AutoCloseable {
 	/**
 	 * Sets the database connection.
 	 * @param conn Database connection
-	 * @throws SQLException
+	 * @throws SQLException if auto-commit cannot be disabled
 	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
@@ -149,7 +173,7 @@ public class ConnectionManager implements AutoCloseable {
 	}
 	/**
 	 * Commits the current transaction.
-	 * @throws SQLException
+	 * @throws SQLException if the transaction cannot be committed
 	 * @author manuel.m.speranza
 	 * @since 08-05-2017
 	 */
@@ -160,7 +184,7 @@ public class ConnectionManager implements AutoCloseable {
 	}
 	/**
 	 * Rolls back the current transaction.
-	 * @throws SQLException
+	 * @throws SQLException if the transaction cannot be rolled back
 	 * @author manuel.m.speranza
 	 * @since 08-05-2017
 	 */
@@ -174,8 +198,8 @@ public class ConnectionManager implements AutoCloseable {
 	 * Retrieves the prepared statement from the cache or loads it from a file.
 	 * @param queryId File path of the SQL statement
 	 * @return Cached prepared statement
-	 * @throws SQLException
-	 * @throws IOException
+	 * @throws SQLException if statement preparation fails
+	 * @throws IOException if the SQL file cannot be read
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
@@ -191,8 +215,8 @@ public class ConnectionManager implements AutoCloseable {
 	 * Retrieves the callable statement from the cache or loads it from a file.
 	 * @param queryId File path of the SQL statement
 	 * @return Cached callable statement
-	 * @throws SQLException
-	 * @throws IOException
+	 * @throws SQLException if statement preparation fails
+	 * @throws IOException if the SQL file cannot be read
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
@@ -207,8 +231,8 @@ public class ConnectionManager implements AutoCloseable {
 	 * Executes the plain query without parameters and returns the cached statement.
 	 * @param queryId File path of the SQL statement
 	 * @return Cached prepared statement with result set
-	 * @throws SQLException
-	 * @throws IOException 
+	 * @throws SQLException if statement preparation or execution fails
+	 * @throws IOException if the SQL file cannot be read
 	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
@@ -227,8 +251,8 @@ public class ConnectionManager implements AutoCloseable {
 	 * Generates and executes the query with junction and returns the cached statement.
 	 * @param queryId File path of the SQL statement
 	 * @return Cached prepared statement with result set
-	 * @throws SQLException
-	 * @throws IOException
+	 * @throws SQLException if statement preparation or execution fails
+	 * @throws IOException if the SQL file cannot be read
 	 * @author manuel.m.speranza 
 	 * @since 10-11-2016
 	 */
@@ -276,8 +300,8 @@ public class ConnectionManager implements AutoCloseable {
 	 * Executes the query with junction and returns the cached statement.
 	 * @param queryId File path of the SQL statement
 	 * @return Cached prepared statement with result set
-	 * @throws SQLException
-	 * @throws IOException
+	 * @throws SQLException if statement preparation or execution fails
+	 * @throws IOException if the SQL file cannot be read
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
@@ -332,7 +356,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * Builds a callable statement to invoke.
 	 * @param invokeStm SQL statement to invoke
 	 * @return Callable statement
-	 * @throws SQLException
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
 	 * @since 22-05-2017
 	 */
@@ -344,7 +368,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * Builds a prepared statement.
 	 * @param tableStm SQL statement
 	 * @return Prepared statement
-	 * @throws SQLException
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
 	 * @since 22-05-2017
 	 */
@@ -358,7 +382,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * @param queryId Query identifier
 	 * @param tableStm SQL statement
 	 * @return Cached prepared statement
-	 * @throws SQLException
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
 	 * @since 12-05-2017
 	 */
@@ -384,7 +408,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * @param queryId Query identifier
 	 * @param invokeStm SQL statement to invoke
 	 * @return Cached callable statement
-	 * @throws SQLException
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
 	 * @since 12-05-2017
 	 */
@@ -410,7 +434,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * @param queryId Query identifier
 	 * @param tableStm SQL statement
 	 * @return Cached prepared statement
-	 * @throws SQLException
+	 * @throws SQLException if statement preparation fails
 	 * @author manuel.m.speranza
 	 * @since 11-05-2017
 	 */
@@ -427,7 +451,7 @@ public class ConnectionManager implements AutoCloseable {
 	 * @param queryId Query identifier
 	 * @param tableStm SQL statement
 	 * @return Cached prepared statement with result set
-	 * @throws SQLException
+	 * @throws SQLException if statement preparation or execution fails
 	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
