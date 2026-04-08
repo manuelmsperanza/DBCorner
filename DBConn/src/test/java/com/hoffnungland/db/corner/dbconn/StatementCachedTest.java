@@ -2,8 +2,8 @@ package com.hoffnungland.db.corner.dbconn;
 
 import java.sql.PreparedStatement;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StatementCachedTest {
 
@@ -16,9 +16,9 @@ public class StatementCachedTest {
 
 		cached.close();
 
-		Assert.assertEquals("sample", cached.getName());
-		Assert.assertSame(preparedStatement.proxy(), cached.getStm());
-		Assert.assertEquals(1, preparedStatement.closeCalls);
+		assertEquals("sample", cached.getName());
+		assertSame(preparedStatement.proxy(), cached.getStm());
+		assertEquals(1, preparedStatement.closeCalls);
 	}
 
 	@Test
@@ -27,6 +27,6 @@ public class StatementCachedTest {
 
 		cached.close();
 
-		Assert.assertNull(cached.getStm());
+		assertNull(cached.getStm());
 	}
 }

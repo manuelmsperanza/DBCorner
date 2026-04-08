@@ -6,8 +6,8 @@ import java.nio.file.Path;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConnectionManagerTest {
 
@@ -18,10 +18,10 @@ public class ConnectionManagerTest {
 
 		manager.setConnection(connection.proxy());
 
-		Assert.assertEquals(Boolean.FALSE, connection.autoCommitValue);
-		Assert.assertNotNull(manager.prepStms);
-		Assert.assertNotNull(manager.prepStmsJnt);
-		Assert.assertNotNull(manager.cllbStms);
+		assertEquals(Boolean.FALSE, connection.autoCommitValue);
+		assertNotNull(manager.prepStms);
+		assertNotNull(manager.prepStmsJnt);
+		assertNotNull(manager.cllbStms);
 	}
 
 	@Test
@@ -33,9 +33,9 @@ public class ConnectionManagerTest {
 		StatementCached<PreparedStatement> first = manager.prepareQuery("sample", "SELECT * FROM sample");
 		StatementCached<PreparedStatement> second = manager.prepareQuery("sample", "SELECT * FROM ignored");
 
-		Assert.assertSame(first, second);
-		Assert.assertEquals(1, connection.preparedSql.size());
-		Assert.assertEquals("SELECT * FROM sample", connection.preparedSql.get(0));
+		assertSame(first, second);
+		assertEquals(1, connection.preparedSql.size());
+		assertEquals("SELECT * FROM sample", connection.preparedSql.get(0));
 	}
 
 	@Test
@@ -47,9 +47,9 @@ public class ConnectionManagerTest {
 		StatementCached<CallableStatement> first = manager.prepareInvoke("invoke", "{call sample_proc()}");
 		StatementCached<CallableStatement> second = manager.prepareInvoke("invoke", "{call ignored_proc()}");
 
-		Assert.assertSame(first, second);
-		Assert.assertEquals(1, connection.callableSql.size());
-		Assert.assertEquals("{call sample_proc()}", connection.callableSql.get(0));
+		assertSame(first, second);
+		assertEquals(1, connection.callableSql.size());
+		assertEquals("{call sample_proc()}", connection.callableSql.get(0));
 	}
 
 	@Test
@@ -65,17 +65,17 @@ public class ConnectionManagerTest {
 		StatementCached<PreparedStatement> first = manager.executeQueryWithJunction(sqlFile.toString());
 		StatementCached<PreparedStatement> second = manager.executeQueryWithJunction(sqlFile.toString());
 
-		Assert.assertSame(first, second);
-		Assert.assertEquals(2, connection.preparedSql.size());
-		Assert.assertEquals("SELECT STM, JUNCTION FROM BUILD\n", connection.preparedSql.get(0));
-		Assert.assertEquals(
+		assertSame(first, second);
+		assertEquals(2, connection.preparedSql.size());
+		assertEquals("SELECT STM, JUNCTION FROM BUILD\n", connection.preparedSql.get(0));
+		assertEquals(
 				"SELECT * FROM FIRST" + ConnectionManager.ls
 						+ "UNION" + ConnectionManager.ls
 						+ "SELECT * FROM SECOND" + ConnectionManager.ls,
 				connection.preparedSql.get(1));
-		Assert.assertEquals(1, connection.preparedStatements.get(0).executeQueryCalls);
-		Assert.assertEquals(2, connection.preparedStatements.get(1).executeQueryCalls);
-		Assert.assertEquals(1, connection.preparedStatements.get(0).resultSet.closeCalls);
+		assertEquals(1, connection.preparedStatements.get(0).executeQueryCalls);
+		assertEquals(2, connection.preparedStatements.get(1).executeQueryCalls);
+		assertEquals(1, connection.preparedStatements.get(0).resultSet.closeCalls);
 	}
 
 	@Test
@@ -88,10 +88,10 @@ public class ConnectionManagerTest {
 
 		manager.disconnect();
 
-		Assert.assertEquals(1, connection.preparedStatements.get(0).closeCalls);
-		Assert.assertEquals(1, connection.callableStatements.get(0).closeCalls);
-		Assert.assertEquals(1, connection.closeCalls);
-		Assert.assertNull(manager.conn);
+		assertEquals(1, connection.preparedStatements.get(0).closeCalls);
+		assertEquals(1, connection.callableStatements.get(0).closeCalls);
+		assertEquals(1, connection.closeCalls);
+		assertNull(manager.conn);
 	}
 
 	private Path createSqlFile(String fileName, String... lines) throws Exception {

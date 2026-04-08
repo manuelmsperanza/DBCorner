@@ -6,8 +6,8 @@ import java.nio.file.Path;
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StatementsCacheTest {
 
@@ -22,9 +22,9 @@ public class StatementsCacheTest {
 
 		StatementCached<PreparedStatement> cached = cache.setQueryFile(sqlFile.toString());
 
-		Assert.assertEquals("select-all", cached.getName());
-		Assert.assertSame(connection.preparedStatements.get(0).proxy(), cached.getStm());
-		Assert.assertEquals("SELECT *\nFROM SAMPLE\n", connection.preparedSql.get(0));
+		assertEquals("select-all", cached.getName());
+		assertSame(connection.preparedStatements.get(0).proxy(), cached.getStm());
+		assertEquals("SELECT *\nFROM SAMPLE\n", connection.preparedSql.get(0));
 	}
 
 	@Test
@@ -38,9 +38,9 @@ public class StatementsCacheTest {
 		StatementCached<PreparedStatement> first = cache.getStatementInFile(sqlFile.toString());
 		StatementCached<PreparedStatement> second = cache.getStatementInFile(sqlFile.toString());
 
-		Assert.assertSame(first, second);
-		Assert.assertEquals(1, connection.preparedSql.size());
-		Assert.assertEquals(1, resultSet.closeCalls);
+		assertSame(first, second);
+		assertEquals(1, connection.preparedSql.size());
+		assertEquals(1, resultSet.closeCalls);
 	}
 
 	@Test
@@ -51,9 +51,9 @@ public class StatementsCacheTest {
 
 		StatementCached<CallableStatement> cached = cache.setQueryFile(sqlFile.toString());
 
-		Assert.assertEquals("invoke", cached.getName());
-		Assert.assertSame(connection.callableStatements.get(0).proxy(), cached.getStm());
-		Assert.assertEquals("{call sample_proc()}\n", connection.callableSql.get(0));
+		assertEquals("invoke", cached.getName());
+		assertSame(connection.callableStatements.get(0).proxy(), cached.getStm());
+		assertEquals("{call sample_proc()}\n", connection.callableSql.get(0));
 	}
 
 	@Test
@@ -63,11 +63,11 @@ public class StatementsCacheTest {
 				new StatementsCache<UnsupportedPreparedStatement>(connection.proxy(), UnsupportedPreparedStatement.class);
 		Path sqlFile = createSqlFile("unsupported.sql", "SELECT 1");
 
-		NullPointerException exception = Assert.assertThrows(
+		NullPointerException exception = assertThrows(
 				NullPointerException.class,
 				() -> cache.setQueryFile(sqlFile.toString()));
 
-		Assert.assertTrue(exception.getMessage().contains("not supported"));
+		assertTrue(exception.getMessage().contains("not supported"));
 	}
 
 	private Path createSqlFile(String fileName, String... lines) throws Exception {
