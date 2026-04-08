@@ -137,17 +137,28 @@
     <module>PGDBConn</module>
   </modules>
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/junit/junit -->
-    <dependency>
+   <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+  <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>6.0.3</version>
+      <scope>test</scope>
+  </dependency>
+  <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
       <scope>test</scope>
+  </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.25.4</version>
     </dependency>
     <dependency>
-      <groupId>com.hoffnungland</groupId>
-      <artifactId>log4j</artifactId>
-      <version>2.25.4.40</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.25.4</version>
     </dependency>
   </dependencies>
 </project>
