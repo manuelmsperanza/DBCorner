@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("unchecked")
 public class ConnectionManagerTest {
 
 	@Test

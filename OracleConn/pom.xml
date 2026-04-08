@@ -10,148 +10,6 @@
 	<version>23.26.1.0.0.53-SNAPSHOT</version>
 	<name>OracleConn</name>
 	<url>http://maven.apache.org</url>
-	<build>
-		<plugins>
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-install-plugin</artifactId>
-			    <executions>
-			        <execution>
-			            <id>install-oracle-xdk-classgen</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/classgen-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/classgen-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-			        <execution>
-			            <id>install-oracle-xdk-oraclexsql</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/oraclexsql-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/oraclexsql-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xdb</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xdb-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xdb-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xml</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xml-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xml-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xmlcomp</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xmlcomp-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xmlcomp-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xmlcomp2</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xmlcomp2-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xmlcomp2-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xmldemo</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xmldemo-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xmldemo-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xmlmesg</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xmlmesg-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xmlmesg-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xmlparserv2</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xmlparserv2-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xmlparserv2-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xschema</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xschema-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xschema-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xsqlserializers</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xsqlserializers-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xsqlserializers-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-					<execution>
-			            <id>install-oracle-xdk-xsu12</id>
-			            <phase>initialize</phase>
-			            <goals>
-			                <goal>install-file</goal>
-			            </goals>
-			            <configuration>
-			                <file>./xdk/xsu12-10.1.0.2.0.jar</file>
-			               	<pomFile>./xdk/xsu12-10.1.0.2.0.pom</pomFile>
-			            </configuration>
-			        </execution>
-			    </executions>
-			</plugin>
-		</plugins>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>com.hoffnungland</groupId>
@@ -174,41 +32,57 @@
 			<groupId>oracle</groupId>
 			<artifactId>classgen</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/classgen-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>oraclexsql</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/oraclexsql-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xdb</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xdb-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xml</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xml-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xmlcomp</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xmlcomp-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xmlcomp2</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xmlcomp2-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xmldemo</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xmldemo-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xmlmesg</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xmlmesg-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<!--dependency>
 			<groupId>oracle</groupId>
@@ -219,16 +93,22 @@
 			<groupId>oracle</groupId>
 			<artifactId>xschema</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xschema-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xsqlserializers</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xsqlserializers-10.1.0.2.0.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>oracle</groupId>
 			<artifactId>xsu12</artifactId>
 			<version>10.1.0.2.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/xdk/xsu12-10.1.0.2.0.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<scm>

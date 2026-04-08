@@ -27,6 +27,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.source.version>25</java.source.version>
     <java.target.version>25</java.target.version>
+    <log4j.version>2.25.4</log4j.version>
   </properties>
   <build>
     <pluginManagement>
@@ -39,6 +40,10 @@
           <version>3.13.0</version>
           <configuration>
             <encoding>UTF-8</encoding>
+            <fork>true</fork>
+            <compilerArgs>
+              <arg>-XDuseOptimizedZip=false</arg>
+            </compilerArgs>
             <source>${java.source.version}</source>
             <target>${java.target.version}</target>
           </configuration>
@@ -104,33 +109,6 @@
           </execution>
         </executions>
       </plugin-->
-      <plugin>
-        <artifactId>maven-jarsigner-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>sign</id>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-            <configuration>
-              <keystore>${hoffnunglandJksPath}</keystore>
-              <alias>${hoffnunglandJksEntry}</alias>
-              <storepass>${hoffnunglandJksPasswd}</storepass>
-              <keypass>${hoffnunglandKeyPasswd}</keypass>
-              <tsa>${hoffnunglandTsaUrl}</tsa>
-            </configuration>
-          </execution>
-          <execution>
-            <id>verify</id>
-            <goals>
-              <goal>verify</goal>
-            </goals>
-            <configuration>
-              <certs>true</certs>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
   <modules>
@@ -142,28 +120,63 @@
     <module>PGDBConn</module>
   </modules>
   <dependencies>
-   <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-  <dependency>
+    <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>6.0.3</version>
       <scope>test</scope>
-  </dependency>
-  <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>6.0.3</version>
-      <scope>test</scope>
-  </dependency>
+    </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.25.4</version>
+      <version>${log4j.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.25.4</version>
+      <version>${log4j.version}</version>
     </dependency>
   </dependencies>
+  <profiles>
+    <profile>
+      <id>sign-artifacts</id>
+      <activation>
+        <property>
+          <name>hoffnunglandJksPath</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-jarsigner-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign</id>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <keystore>${hoffnunglandJksPath}</keystore>
+                  <alias>${hoffnunglandJksEntry}</alias>
+                  <storepass>${hoffnunglandJksPasswd}</storepass>
+                  <keypass>${hoffnunglandKeyPasswd}</keypass>
+                  <tsa>${hoffnunglandTsaUrl}</tsa>
+                </configuration>
+              </execution>
+              <execution>
+                <id>verify</id>
+                <goals>
+                  <goal>verify</goal>
+                </goals>
+                <configuration>
+                  <certs>true</certs>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
