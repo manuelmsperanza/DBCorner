@@ -27,7 +27,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.source.version>25</java.source.version>
     <java.target.version>25</java.target.version>
-    <log4j.version>2.25.4</log4j.version>
   </properties>
   <build>
     <pluginManagement>
@@ -128,15 +127,10 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
+			<groupId>com.hoffnungland</groupId>
+			<artifactId>log4j</artifactId>
+			<version>2.25.4.40</version>
+		</dependency>
   </dependencies>
   <profiles>
     <profile>
