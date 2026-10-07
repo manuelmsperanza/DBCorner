@@ -1,20 +1,28 @@
 # DBConn
 
-Generic wrapper implemention of database operations like
+`DBConn` is the shared JDBC layer used by the database-specific modules.
 
-* connection
-* transaction commit and rollback
-* named cache of queries (identifier is queryId containing the file path, absolute or relative)
-* creation of dynamic queries with set operator (union, union all...), called junction queries, starting from a query returning a list of tables (having the same columns)
+## Capabilities
 
+- Open a JDBC connection from a properties file or JDBC URL and `Properties`.
+- Manage transactions with `commit()` and `rollback()`.
+- Prepare and cache SQL statements by identifier.
+- Load prepared or callable statements from SQL files using `getPreparedStatement` and `getCallableStatement`.
+- Build and cache junction queries from a seed query that returns `STM` and `JUNCTION` columns.
+- Close cached statements and the connection via `disconnect()` or try-with-resources.
 
-## Create a new project
-	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=DBConn -Dpackage="com.hoffnungland.db.corner.dbconn" -Dversion="0.0.1-SNAPSHOT"
-## Build settings
-### Remove junit:junit:3.8.1
+The connection manager disables auto-commit when a connection is assigned. Transaction completion is the caller's responsibility.
 
-#add .gitignore to mandatory empty directory
-	# Ignore everything in this directory
-	*
-	# Except this file
-	!.gitignore
+```java
+try (ConnectionManager manager = new ConnectionManager()) {
+    manager.connect("jdbc:some-driver:database", properties);
+    StatementCached<PreparedStatement> query =
+            manager.executeQuery("sql/select-records.sql");
+    // Consume query.getStm().getResultSet().
+    manager.commit();
+}
+```
+
+Database drivers are registered by the corresponding database module. Use `H2ConnectionManager`, `PgConnectionManager`, or `OrclConnectionManager` rather than the generic manager when a driver-specific connection is needed.
+
+Run its unit tests from the repository root with `mvn -pl DBConn test`. See the [root README](../README.md) for requirements and Javadoc generation.

@@ -15,7 +15,6 @@ import oracle.ucp.jdbc.PoolDataSourceFactory;
 
 /**
  * Manage the connection pool with the Oracle database.
- * @author manuel.m.speranza
  * @since 20-02-2018
  * @version 0.1
  */
@@ -23,13 +22,19 @@ import oracle.ucp.jdbc.PoolDataSourceFactory;
 public class OracleUConnectionPoolManager {
 
 	private static final Logger logger = LogManager.getLogger(OracleUConnectionPoolManager.class);
+	/** Oracle Universal Connection Pool data source. */
 	protected PoolDataSource pds;
+
+	/**
+	 * Creates an unconfigured Oracle connection pool manager.
+	 */
+	public OracleUConnectionPoolManager() {
+	}
 	/**
 	 * Actually connect to the database. Disconnect the previous connection if open.
 	 * @param connectionPropertyPath the path of the property file containing the connection string
 	 * @throws IOException if an I/O error occurs
 	 * @throws SQLException if a database access error occurs
-	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
 	public void connect(String connectionPropertyPath) throws IOException, SQLException{
@@ -51,7 +56,6 @@ public class OracleUConnectionPoolManager {
 	 * @param URL The jdbc:oracle:thin:@ connection URL
 	 * @param connectionPropsFile The properties file containing at least user, password, minPoolSize and maxPoolSize
 	 * @throws SQLException if a database access error occurs
-	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
 
@@ -81,7 +85,6 @@ public class OracleUConnectionPoolManager {
 	 * Get a connection from the pool.
 	 * @return an OrclConnectionManager instance
 	 * @throws SQLException if a database access error occurs
-	 * @author manuel.m.speranza
 	 * @since 20-02-2018
 	 */
 	
@@ -100,7 +103,6 @@ public class OracleUConnectionPoolManager {
 	/**
 	 * Get the minimum pool size.
 	 * @return the minimum pool size
-	 * @author manuel.m.speranza
 	 * @since 21-02-2018
 	 */
 	public int getMinPoolSize(){
@@ -110,7 +112,6 @@ public class OracleUConnectionPoolManager {
 	/**
 	 * Get the maximum pool size.
 	 * @return the maximum pool size
-	 * @author manuel.m.speranza
 	 * @since 21-02-2018
 	 */
 	public int getMaxPoolSize(){
@@ -120,7 +121,6 @@ public class OracleUConnectionPoolManager {
 	/**
 	 * Get the available connections count.
 	 * @return the available connections count
-	 * @author manuel.m.speranza
 	 * @since 21-02-2018
 	 */
 	public int getAvailableConnectionsCount(){

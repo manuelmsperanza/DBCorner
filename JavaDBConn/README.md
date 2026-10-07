@@ -1,33 +1,22 @@
 # JavaDBConn
 
-The project extends the DBConn functionalities, providing the Derby DB implementation.
+`JavaDBConn` provides Derby embedded and client JDBC connection managers. It is maintained in the repository but is currently excluded from the root Maven reactor.
 
-## Create a new project
-	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=JavaDBConn -Dpackage="com.hoffnungland.db.corner.javadbconn" -Dversion="0.0.1-SNAPSHOT"
-#Build settings
-##Remove junit:junit:3.8.1
+## Build and test
 
+Build and install the shared parent/database module first, then run the Derby module:
 
-#Relationship
-##Add the dependencies
-###Derby jdbc dependencies
+```shell
+mvn -pl DBConn install
+mvn -f JavaDBConn/pom.xml test
+```
 
-	<dependencies>
-		<dependency>
-			<groupId>com.hoffnungland</groupId>
-			<artifactId>DBConn</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>10.13.1.1</version>
-		</dependency>
-	</dependencies>
+Generate the module's Javadocs with:
 
-#add .gitignore to mandatory empty directory
-	# Ignore everything in this directory
-	*
-	# Except this file
-	!.gitignore
+```shell
+mvn -f JavaDBConn/pom.xml javadoc:javadoc
+```
+
+`JdbcLocalManager` uses Derby's embedded driver; `JdbcClientManager` uses the network client driver. `JdbcConnectionManager.getNextVal` retrieves a Derby sequence value. Derby sequences and local database paths must exist or be created before use.
+
+See the [root README](../README.md) for project-wide requirements and connection handling guidance.

@@ -19,7 +19,14 @@ import com.hoffnungland.db.corner.dbconn.StatementCached;
 public class TOMOrclConnManager extends OrclConnectionManager {
 
 	private static final Logger logger = LogManager.getLogger(TOMOrclConnManager.class);
+	/** Oracle date format used by Technical Order Management sessions. */
 	public static final String nlsTomDateFormat = "'DD/MM/YYYY HH24:MI:SS'";
+
+	/**
+	 * Creates a Technical Order Management Oracle connection manager.
+	 */
+	public TOMOrclConnManager() {
+	}
 	
 	/**
 	 * Executes a plain query with one parameter of type long in the where condition and saves the ResultSet within.
@@ -28,7 +35,6 @@ public class TOMOrclConnManager extends OrclConnectionManager {
 	 * @return the cached prepared statement with the new result-set value.
 	 * @throws SQLException if a database access error occurs.
 	 * @throws IOException if an I/O error occurs.
-	 * @author manuel.m.speranza
 	 * @since 05-05-2017
 	 */
 	public StatementCached<PreparedStatement> executeSsoBasedQuery(String queryId, long objSsoId) throws SQLException, IOException {
@@ -47,7 +53,6 @@ public class TOMOrclConnManager extends OrclConnectionManager {
 	 * @return the cached callable statement with the new result-set value.
 	 * @throws SQLException if a database access error occurs.
 	 * @throws IOException if an I/O error occurs.
-	 * @author manuel.m.speranza
 	 * @since 08-05-2017
 	 */
 	public StatementCached<CallableStatement> executeSsoBasedCallableStatement(String queryId, long objSsoId) throws SQLException, IOException {
@@ -67,7 +72,6 @@ public class TOMOrclConnManager extends OrclConnectionManager {
 	 * @param objSsoId the service order id, usually the first key of the composite PK and the partition key of the table.
 	 * @return a cached prepared statement with the new result-set value.
 	 * @throws SQLException if a database access error occurs.
-	 * @author manuel.m.speranza
 	 * @since 11-05-2017
 	 */
 	public StatementCached<PreparedStatement> executeSsoBasedFullTableQuery(String queryId, String tableStm, long objSsoId) throws SQLException {

@@ -71,6 +71,19 @@ public class StatementsCacheTest {
 		assertTrue(exception.getMessage().contains("not supported"));
 	}
 
+	@Test
+	public void closeClosesStatementsAndClearsCache() throws Exception {
+		JdbcTestSupport.TestConnection connection = JdbcTestSupport.connection();
+		StatementsCache<PreparedStatement> cache = new StatementsCache<PreparedStatement>(connection.proxy(), PreparedStatement.class);
+		Path sqlFile = createSqlFile("close.sql", "SELECT 1");
+		cache.getStatementInFile(sqlFile.toString());
+
+		cache.close();
+
+		assertEquals(1, connection.preparedStatements.get(0).closeCalls);
+		assertTrue(cache.cache.isEmpty());
+	}
+
 	private Path createSqlFile(String fileName, String... lines) throws Exception {
 		Path sqlFile = Files.createTempDirectory("dbcorner-statements-cache").resolve(fileName);
 		Files.write(sqlFile, String.join("\n", lines).getBytes(StandardCharsets.UTF_8));

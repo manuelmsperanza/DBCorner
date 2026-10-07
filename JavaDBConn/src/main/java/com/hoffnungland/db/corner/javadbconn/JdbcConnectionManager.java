@@ -11,7 +11,6 @@ import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 
 /**
  * Manage the connection with the Derby Java database and the statements.
- * @author manuel.m.speranza
  * @since 10-05-2017
  * @version 0.1
  */
@@ -19,13 +18,17 @@ import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 public class JdbcConnectionManager extends ConnectionManager {
 	private static final Logger logger = LogManager.getLogger(JdbcConnectionManager.class);
 
+	/**
+	 * Creates a Derby JDBC connection manager.
+	 */
+	public JdbcConnectionManager() {
+	}
 	
 	/**
 	 * Retrieve the next value of the sequence specified.
 	 * @param sequenceName The name of the sequence
 	 * @return the next value
 	 * @throws SQLException if a database access error occurs
-	 * @author manuel.m.speranza
 	 * @since 12-05-2017
 	 */
 	//TODO verify data type

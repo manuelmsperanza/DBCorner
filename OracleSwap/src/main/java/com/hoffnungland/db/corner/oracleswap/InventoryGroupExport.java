@@ -14,11 +14,25 @@ import org.apache.logging.log4j.Logger;
 
 import com.hoffnungland.db.corner.oracleconn.OrclConnectionManager;
 
+/**
+ * Exports and replaces the INVENTORYGROUP tables between two Oracle databases.
+ */
 public class InventoryGroupExport {
 
 	private static final Logger logger = LogManager.getLogger(InventoryGroupExport.class);
 	private static final String ls = System.getProperty("line.separator");
+
+	/**
+	 * Creates the inventory group export utility.
+	 */
+	public InventoryGroupExport() {
+	}
 	
+	/**
+	 * Copies the inventory group tables from the source connection to the target.
+	 *
+	 * @param args source and target connection names
+	 */
 	public static void main( String[] args )
 	{
 		logger.traceEntry();

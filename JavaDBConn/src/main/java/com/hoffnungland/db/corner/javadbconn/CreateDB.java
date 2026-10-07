@@ -14,6 +14,12 @@ import org.apache.logging.log4j.Logger;
 public class CreateDB {
 
 	private static final Logger logger = LogManager.getLogger(CreateDB.class);
+
+	/**
+	 * Creates the Derby database initialization utility.
+	 */
+	public CreateDB() {
+	}
 	
 	/**
 	 * Main method to create the database.

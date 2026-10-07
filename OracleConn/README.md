@@ -1,74 +1,30 @@
 # OracleConn
 
-The project extends the DBConn functionalities, providing the Oracle DB implementation.
+`OracleConn` extends the shared `DBConn` utilities with Oracle JDBC, Universal Connection Pool, and XML functionality.
 
-Furthermore, you can:
-* create a connection pool.
-* use the Oracle XML Developer's Kit
+## Connection properties
 
-OrclConnectionManager use both Oracle XML Developer's Kit and BMS_XMLGEN and DBMS_XMLSTORE PL/SQL package functions:
-* getXmlOfQuery uses DBMS_XMLGEN.GETXML
-* getFullXmlOfQuery uses DBMS_XMLGEN.GETXML
-* xmlSave (having Reader content input parameter) uses DBMS_XMLSTORE.insertXML
-* xmlUpdate (having Reader content input parameter) uses DBMS_XMLSTORE.updateXML
-* xmlFullUpdate uses DBMS_XMLSTORE.updateXML
-* xmlDelete uses DBMS_XMLSTORE.deleteXML
-* xmlSave (having Document doc input parameter) uses oracle.xml.sql.dml.OracleXMLSave
-* xmlSave (having String xml input parameter) uses oracle.xml.sql.dml.OracleXMLSave
-* xmlQueryDocument uses oracle.xml.sql.query.OracleXMLQuery
-* xmlQuery uses oracle.xml.sql.query.OracleXMLQuery
-* xmlUpdate (having Document doc input parameter) uses oracle.xml.sql.dml.OracleXMLSave
-* xmlUpdate (having String xml input parameter) uses oracle.xml.sql.dml.OracleXMLSave
+An Oracle connection properties file should define:
 
-## Property file
+```properties
+URL=jdbc:oracle:thin:@//db-host:1521/service-name
+user=schema_name
+password=replace_me
+```
 
-Conventionally the property file can be named as follow: environment_name.properties.
-The file contains these properties
+The URL can also use Oracle's SID or TNS descriptor syntax. To configure a pool, provide:
 
-* URL: jdbc:oracle:thin:@database_specifier
-* user: schema name
-* password: schema password
-* MinPoolSiz: connection pool minimum
-* MaxPoolSize: connection pool maximum size
+```properties
+MinPoolSize=1
+MaxPoolSize=8
+```
 
-Database specifier can be:
-* host_name\[:port\]\[:SID\]
-* //host_name\[:port\]\[/Service Name\]
-* a plain TNS entry: (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=host_name)(PORT=port))(CONNECT_DATA=(SERVICE_NAME or SID= Service Name or SID)))
+Use `OracleUConnectionPoolManager` to configure the pool and borrow `OrclConnectionManager` instances. Close borrowed managers when finished; their close returns the connection to the pool. Never store production credentials in the repository.
 
+## Oracle-specific features
 
-# Create a new project
-	
-	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=OracleConn -Dpackage="com.hoffnungland.db.corner.oracleconn" -Dversion="0.0.1-SNAPSHOT"
-	
-#Build settings
-##Remove junit:junit:3.8.1
+`OrclConnectionManager` supports sequence values, CLOBs, XML generation through `DBMS_XMLGEN`, XML insert/update/delete through `DBMS_XMLSTORE`, Oracle XDK XML queries and saves, and table truncation. Its XML methods require the corresponding Oracle database packages and Oracle XDK libraries.
 
-#Relationship
-##Add the dependencies
-###Oracle jdbc dependencies
-[Add the Oracle Maven Repository](http://docs.oracle.com/middleware/1213/core/MAVEN/config_maven_repo.htm#MAVEN9010)
-###Instruction to encrypt the password on maven settings.xml
-[Encryption guide](http://maven.apache.org/guides/mini/guide-encryption.html)<br>
-Add log4j, jdbc e POI update jUnit<br>
+`TOMOrclConnManager` adds parameterized query helpers for Technical Order Management workloads. `TOMOrclUConnPoolManager` returns those specialized managers from a connection pool.
 
-
-	<dependencies>
-		<dependency>
-			<groupId>com.hoffnungland</groupId>
-			<artifactId>DBConn</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- https://maven.oracle.com -->
-		<dependency>
-			<groupId>com.oracle.jdbc</groupId>
-			<artifactId>ojdbc7</artifactId>
-			<version>12.1.0.2</version>
-		</dependency>
-	</dependencies>
-
-#add .gitignore to mandatory empty directory
-	# Ignore everything in this directory
-	*
-	# Except this file
-	!.gitignore
+Oracle operations require access to an Oracle database and are not run by the regular unit-test suite. Run the module tests with `mvn -pl OracleConn test`. See the [root README](../README.md) for build and Javadoc instructions.

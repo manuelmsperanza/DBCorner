@@ -14,6 +14,12 @@ import org.apache.logging.log4j.Logger;
 public class App 
 {
 	private static final Logger logger = LogManager.getLogger(App.class);
+
+	/**
+	 * Creates the H2 database application.
+	 */
+	public App() {
+	}
 	
 	/**
 	 * Main method to run the application.

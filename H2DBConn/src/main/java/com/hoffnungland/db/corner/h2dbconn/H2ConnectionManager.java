@@ -12,6 +12,12 @@ public class H2ConnectionManager extends ConnectionManager {
 	
 	private static final Logger logger = LogManager.getLogger(H2ConnectionManager.class);
 	
+	/**
+	 * Creates a manager and registers the H2 JDBC driver.
+	 */
+	public H2ConnectionManager() {
+	}
+
 	static {
 		ConnectionManager.registerDriver(new org.h2.Driver());
 	}

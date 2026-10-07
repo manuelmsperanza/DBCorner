@@ -11,6 +11,12 @@ import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 public class JdbcLocalManager extends JdbcConnectionManager {
 	
 	private static final Logger logger = LogManager.getLogger(JdbcLocalManager.class);
+
+	/**
+	 * Creates a Derby embedded manager and registers the embedded driver.
+	 */
+	public JdbcLocalManager() {
+	}
 	
 	static {
 		ConnectionManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());

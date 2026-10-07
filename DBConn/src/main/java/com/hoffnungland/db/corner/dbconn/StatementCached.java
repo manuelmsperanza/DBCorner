@@ -27,7 +27,6 @@ public class StatementCached<T extends PreparedStatement> {
 	/**
 	 * Gets the name of the statement.
 	 * @return Statement name
-	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
 	public String getName() {
@@ -38,7 +37,6 @@ public class StatementCached<T extends PreparedStatement> {
 	/**
 	 * Sets the name of the statement.
 	 * @param name Statement name
-	 * @author manuel.m.speranza
 	 * @since 21-09-2016
 	 */
 	void setName(String name) {
@@ -48,7 +46,6 @@ public class StatementCached<T extends PreparedStatement> {
 	/**
 	 * Gets the SQL statement.
 	 * @return SQL statement
-	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
 	public T getStm() {
@@ -58,7 +55,6 @@ public class StatementCached<T extends PreparedStatement> {
 	/**
 	 * Sets the SQL statement.
 	 * @param stm SQL statement
-	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
 	void setStm(T stm) {
@@ -68,7 +64,6 @@ public class StatementCached<T extends PreparedStatement> {
 	/**
 	 * Closes the current statement.
 	 * @throws SQLException if closing the statement fails
-	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
 	public void close() throws SQLException{

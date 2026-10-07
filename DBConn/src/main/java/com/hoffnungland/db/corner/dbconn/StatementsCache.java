@@ -23,6 +23,7 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	private static final Logger logger = LogManager.getLogger(StatementsCache.class);
 	//private static String ls = System.getProperty("line.separator");
 	
+	/** Connection used to create statements; cleared when the cache is closed. */
 	private Connection conn;
 	/**
 	 * JDBC statement type handled by this cache.
@@ -46,8 +47,9 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	}
 	
 	/**
-	 * Closes all cached statements and clears the cache.
+	 * Closes all cached statements, clears the cache, and releases the connection reference.
 	 */
+	@Override
 	public void close(){
 		logger.traceEntry();
 		for (StatementCached<T> curStm : cache.values()){
@@ -57,6 +59,7 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 				logger.error(e.getMessage(), e);
 			}
 		}
+		cache.clear();
 		
 		this.conn = null;
 		
@@ -69,7 +72,6 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	 * @return the cached statement associated with the supplied query identifier
 	 * @throws IOException if the SQL file cannot be read
 	 * @throws SQLException if statement preparation fails
-	 * @author manuel.m.speranza
 	 * @since 04-05-2017
 	 */
 	public StatementCached<T> getStatementInFile(String queryId) throws IOException, SQLException{
@@ -99,7 +101,6 @@ public class StatementsCache<T extends PreparedStatement> implements AutoCloseab
 	 * @return the cached statement metadata containing the parsed SQL and prepared statement
 	 * @throws IOException if the SQL file cannot be read
 	 * @throws SQLException if statement preparation fails
-	 * @author manuel.m.speranza
 	 * @since 31-08-2016
 	 */
 	public StatementCached<T> setQueryFile(String queryId) throws IOException, SQLException {

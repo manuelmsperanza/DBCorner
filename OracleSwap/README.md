@@ -1,71 +1,28 @@
 # OracleSwap
 
-OracleSwap take benefits from OracleConn XDK wrapper to move data from an Oracle database to another.
+OracleSwap transfers table data between Oracle databases using the `OracleConn` XML helpers. Source and destination tables must have compatible schemas and the credentials need the required read/write privileges.
 
-The App main method has the following input paramters:
-* source db connection name
-* target db connection name
-* list of tables (whitespace separated values)
+## Configuration
 
-The algorithm assumes the target table DDL is the same (or fit) the source table DDL.
+Create one properties file per connection under `etc/connections`, for example:
 
-## Property files
-Connection file name must be in etc/connections directory and has the same rules listed in OracleConn.
+```text
+etc/connections/source.properties
+etc/connections/target.properties
+```
 
-## Create a new project
-	mvn archetype:generate -Dfilter=maven-archetype-quickstart -DgroupId=com.hoffnungland -DartifactId=OracleSwap -Dpackage=com.hoffnungland.db.corner.oracleswap -Dversion=0.0.1-SNAPSHOT
+Each file must define the Oracle JDBC `URL`, `user`, and `password`. OracleSwap resolves connection names to these files by appending `.properties`.
 
-## Build settings
-### Remove junit:junit:3.8.1
+## Run
 
-## Relationship
-### Add the dependencies
-#### Oracle jdbc dependencies
-[Add the Oracle Maven Repository](http://docs.oracle.com/middleware/1213/core/MAVEN/config_maven_repo.htm#MAVEN9010)
+Pass source name, target name, and one or more table names:
 
-#### Instruction to encrypt the password on maven settings.xml
-[Encryption guide](http://maven.apache.org/guides/mini/guide-encryption.html)<br>
-Add log4j, jdbc e POI update jUnit<br>
+```shell
+java -cp <application-classpath> com.hoffnungland.db.corner.oracleswap.App source target TABLE_A TABLE_B
+```
 
+The application deletes existing destination rows for each table before inserting the source data, then commits the destination transaction. Review the selected tables and target before running; destination data is replaced.
 
-	<dependencies>
-		<dependency>
-			<groupId>com.hoffnungland</groupId>
-			<artifactId>OracleConn</artifactId>
-			<version>0.0.11</version>
-		</dependency>
-	</dependencies>
+`InventoryGroupExport` is a separate utility for the `INVENTORYGROUP` and `INVENTORYGROUP_CHAR` tables. It uses the same connection configuration and also replaces destination data.
 
-# Run with Maven
-	
-	start mvn exec:java -Dexec.mainClass="com.hoffnungland.db.corner.oracleswap.App" -Dlog4j.configurationFile=src/main/resources/log4j2.xml
-
-# Create Jar with dependencies
-
-## Configure the pom.xml
-
-	<plugin>
-		<artifactId>maven-assembly-plugin</artifactId>
-		<configuration>
-			<descriptorRefs>
-				<descriptorRef>jar-with-dependencies</descriptorRef>
-			</descriptorRefs>
-			<appendAssemblyId>false</appendAssemblyId>
-			<finalName>${project.artifactId}</finalName>
-			<archive>
-				<manifest>
-					<mainClass>com.hoffnungland.db.corner.oracleswap.App</mainClass>
-				</manifest>
-			</archive>
-		</configuration>
-	</plugin>
-
-## Execute the maven assembly single
-
-	mvn assembly:single
-
-#add .gitignore to mandatory empty directory
-	# Ignore everything in this directory
-	*
-	# Except this file
-	!.gitignore
+Run the module's unit tests from the repository root with `mvn -pl OracleSwap test`. See the [root README](../README.md) for requirements and Javadoc generation.

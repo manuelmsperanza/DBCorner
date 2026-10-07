@@ -14,6 +14,12 @@ public class App
 	private static final Logger logger = LogManager.getLogger(App.class);
 
 	/**
+	 * Creates the Derby application entry point.
+	 */
+	public App() {
+	}
+
+	/**
 	 * Main method to run the application.
 	 * @param args Command line arguments
 	 */

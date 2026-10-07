@@ -25,6 +25,12 @@ public class App
 	private static final Logger logger = LogManager.getLogger(App.class);
 
 	/**
+	 * Creates the OracleSwap command-line application.
+	 */
+	public App() {
+	}
+
+	/**
 	 * Main method to run the OracleSwap application.
 	 * @param args Command line arguments: SourceConnectionName TargetConnectionName TableName[ TableName]*
 	 */

@@ -11,6 +11,12 @@ import com.hoffnungland.db.corner.dbconn.ConnectionManager;
 public class JdbcClientManager extends JdbcConnectionManager {
 	
 	private static final Logger logger = LogManager.getLogger(JdbcClientManager.class);
+
+	/**
+	 * Creates a Derby client manager and registers the network client driver.
+	 */
+	public JdbcClientManager() {
+	}
 	
 	static {
 		ConnectionManager.registerDriver(new org.apache.derby.jdbc.ClientDriver());

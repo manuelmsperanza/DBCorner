@@ -1,155 +1,88 @@
 # DBCorner
 
-Provide wrapper for different database implementation.
+DBCorner is a Java 25 Maven multi-module project providing reusable JDBC connection and statement utilities, with database-specific modules for H2, Oracle, and PostgreSQL. The Derby module is maintained in the repository but is not enabled in the root Maven reactor.
 
-## Create a new project
-	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=DBCorner -Dpackage="com.hoffnungland.db.corner" -Dversion="0.0.1-SNAPSHOT"
-## Build settings
-### Delete the src directory
-### Change the package type
+## Modules
 
-	<packaging>pom</packaging>
+| Module | Purpose |
+| --- | --- |
+| `DBConn` | Shared JDBC connection, transaction, SQL-file, and statement-cache utilities. |
+| `H2DBConn` | H2 driver integration and H2 database utilities. |
+| `OracleConn` | Oracle JDBC/Universal Connection Pool integration and XML helpers. |
+| `OracleSwap` | Command-line Oracle table data transfer utilities. |
+| `PGDBConn` | PostgreSQL driver integration. |
+| `JavaDBConn` | Derby embedded and client connection managers; build separately. |
 
-### Add prerequisites
+## Requirements
 
-	<prerequisites>
-		<maven>3.1.0</maven>
-	</prerequisites>
+- JDK 25
+- Maven 3.9 or later
 
-Update to java 1.8<br>
-	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.source.version>1.8</java.source.version>
-		<java.target.version>1.8</java.target.version>
-	</properties>
+## Build and tests
 
-### Configure the plugins
-	
-	<build>
-		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
-				defaults (may be moved to parent pom) -->
-			<plugins>
-				<plugin>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.0</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-						<source>${java.source.version}</source>
-						<target>${java.target.version}</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>3.0.0-M2</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.1.1</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>3.0.0-M1</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>3.0.0-M1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.0.0-M2</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>enforce-maven</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<requireMavenVersion>
-									<version>3.0.5</version>
-								</requireMavenVersion>
-								<requireJavaVersion>
-									<version>1.8.0</version>
-								</requireJavaVersion>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+From the repository root:
 
-## Relationship
-### Add the dependencies
-#### Instruction to encrypt the password on maven settings.xml
-[Encryption guide](http://maven.apache.org/guides/mini/guide-encryption.html)<br>
-Add log4j and update jUnit<br>
+```shell
+mvn test
+```
 
+Build all enabled reactor modules:
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-bom</artifactId>
-				<version>2.6.2</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	<dependencies>
-		<!-- https://mvnrepository.com/artifact/junit/junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<!--version>2.6.1</version -->
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<!--version>2.6.1</version -->
-		</dependency>
-	</dependencies>
+```shell
+mvn package
+```
 
-# add .gitignore to mandatory empty directory
-	# Ignore everything in this directory
-	*
-	# Except this file
-	!.gitignore
+The Derby module is not part of the root reactor. Install the shared DBConn dependency, then build and test it separately:
 
-# Configure the Package Clean UP Automation with GitHub Action
-The Action run during the release phase of package (or you can run it manually).
-Leave only the latest package version into the repository.
-Create the .github/workflows/cleanupPackages.yml file.
+```shell
+mvn -pl DBConn install
+mvn -f JavaDBConn/pom.xml test
+```
 
-# Support
+## API documentation
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K441XSO)
+Generate aggregated Javadocs for the enabled reactor modules:
 
-[![Support the development of these features](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/donate/?business=VU48PTCSF93A2&no_recurring=0&item_name=Support+the+development+of+these+features.&currency_code=USD)
+```shell
+mvn javadoc:aggregate
+```
+
+The output is written to `target/reports/apidocs`. Generate the Derby module's Javadocs separately with:
+
+```shell
+mvn -f JavaDBConn/pom.xml javadoc:javadoc
+```
+
+## Connection configuration
+
+Connection managers accept a JDBC URL and `Properties`, or load them from a properties file. Set at least `URL`, `user`, and `password` as required by the database and driver. For Oracle connection pools, also set `MinPoolSize` and `MaxPoolSize`.
+
+Example (keep real credentials out of source control):
+
+```properties
+URL=jdbc:postgresql://localhost:5432/example
+user=example_user
+password=replace_me
+```
+
+`DBConn` reads SQL files using the platform default charset; use a relative or absolute path. Use `ConnectionManager` as an `AutoCloseable` resource to close statements and the underlying connection. Explicitly call `commit()` or `rollback()` to finish transactions.
+
+## OracleSwap
+
+OracleSwap expects Oracle connection property files under `etc/connections`, named `<connection-name>.properties`. Invoke its main class with a source connection name, target connection name, and one or more table names:
+
+```shell
+java -cp <application-classpath> com.hoffnungland.db.corner.oracleswap.App source target TABLE_A TABLE_B
+```
+
+Both databases must be reachable, and destination tables must have compatible schemas. See [OracleSwap](OracleSwap/README.md) for details.
+
+## More information
+
+- [Project features](FEATURE.md)
+- [DBConn](DBConn/README.md)
+- [H2DBConn](H2DBConn/README.md)
+- [OracleConn](OracleConn/README.md)
+- [OracleSwap](OracleSwap/README.md)
+- [PGDBConn](PGDBConn/README.md)
+- [JavaDBConn](JavaDBConn/README.md)

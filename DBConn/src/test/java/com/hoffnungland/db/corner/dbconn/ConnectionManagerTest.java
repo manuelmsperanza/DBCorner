@@ -26,6 +26,19 @@ public class ConnectionManagerTest {
 	}
 
 	@Test
+	public void commitAndRollbackDelegateToConnection() throws Exception {
+		ConnectionManager manager = new ConnectionManager();
+		JdbcTestSupport.TestConnection connection = JdbcTestSupport.connection();
+		manager.setConnection(connection.proxy());
+
+		manager.commit();
+		manager.rollback();
+
+		assertEquals(1, connection.commitCalls);
+		assertEquals(1, connection.rollbackCalls);
+	}
+
+	@Test
 	public void prepareQueryCachesPreparedStatementByQueryId() throws Exception {
 		ConnectionManager manager = new ConnectionManager();
 		JdbcTestSupport.TestConnection connection = JdbcTestSupport.connection();

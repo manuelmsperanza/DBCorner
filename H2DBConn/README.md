@@ -1,75 +1,21 @@
-# JavaDBConn
+# H2DBConn
 
-The project extends the DBConn functionalities, providing the Derby DB implementation.
+`H2DBConn` provides `H2ConnectionManager`, a `DBConn.ConnectionManager` configured with the H2 JDBC driver.
 
-## Create a new project
-	mvn archetype:generate -Dfilter="org.apache.maven.archetypes:maven-archetype-quickstart" -DgroupId="com.hoffnungland" -DartifactId=H2DBConn -Dpackage="com.hoffnungland.db.corner.h2dbconn" -Dversion="0.0.1-SNAPSHOT"
-#Build settings
-##Remove junit:junit:3.8.1
+## Connect to H2
 
+```java
+Properties properties = new Properties();
+properties.setProperty("user", "sa");
+properties.setProperty("password", "");
 
-#Relationship
-##Add the dependencies
-###Derby jdbc dependencies
+try (H2ConnectionManager manager = new H2ConnectionManager()) {
+    manager.connect("jdbc:h2:mem:example;DB_CLOSE_DELAY=-1", properties);
+    // Prepare and execute SQL with the shared ConnectionManager API.
+    manager.commit();
+}
+```
 
-	<dependencies>
-		<dependency>
-			<groupId>com.hoffnungland</groupId>
-			<artifactId>DBConn</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-		<dependency>
-		    <groupId>com.h2database</groupId>
-		    <artifactId>h2</artifactId>
-		    <version>1.4.200</version>
-		    <scope>test</scope>
-		</dependency>
-	</dependencies>
+For a file database, use an H2 URL such as `jdbc:h2:~/example`. Add suitable H2 encryption options only when using an encrypted database.
 
-
-## Configure the pom.xml
-
-	<plugin>
-		<artifactId>maven-assembly-plugin</artifactId>
-		<configuration>
-			<descriptorRefs>
-				<descriptorRef>jar-with-dependencies</descriptorRef>
-			</descriptorRefs>
-			<appendAssemblyId>false</appendAssemblyId>
-			<finalName>${project.name}</finalName>
-			<archive>
-				<manifest>
-					<mainClass>com.hoffnungland.db.corner.h2dbconn.App</mainClass>
-				</manifest>
-			</archive>
-		</configuration>
-	</plugin>
-
-## Execute the maven assembly single
-
-### Get the last tag version
-	
-	git checkout <<tag name>>
-
-### Create the jar with dependencies
-
-	mvn install assembly:single
-	
-or 
-
-	mvn package assembly:single
-
-### Come back to the previous commit
-
-	git switch -
-
-### Come back to the main branch
-	
-	git checkout main
-
-#add .gitignore to mandatory empty directory
-	# Ignore everything in this directory
-	*
-	# Except this file
-	!.gitignore
+Run tests from the repository root with `mvn -pl H2DBConn test`. See the [root README](../README.md) for requirements and Javadoc generation.

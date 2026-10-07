@@ -21,16 +21,22 @@ import oracle.xml.sql.query.OracleXMLQuery;
 /**
  * Manages the connection with the Oracle database and the statements.
  * Extends ConnectionManager.
- * @author manuel.m.speranza
  * @since 05-05-2017
  * @version 0.2
  */
 public class OrclConnectionManager extends ConnectionManager {
 
 	private static final Logger logger = LogManager.getLogger(OrclConnectionManager.class);
+	/** Oracle date-time format used when serializing XML date-time values. */
 	public static final String nslXsDateTimeFormat = "'YYYY-MM-DD\"T\"HH24:MI:SS'";
 	
 	private CallableStatement xmlGenStm = null;
+
+	/**
+	 * Creates an Oracle connection manager and registers the Oracle JDBC driver.
+	 */
+	public OrclConnectionManager() {
+	}
 	
 	static {
 		ConnectionManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
@@ -41,7 +47,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * @param sequenceName the name of the sequence.
 	 * @return the next value.
 	 * @throws SQLException if a database access error occurs.
-	 * @author manuel.m.speranza
 	 * @since 12-05-2017
 	 */
 	public long getNextVal(String sequenceName) throws SQLException {
@@ -56,7 +61,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * Creates a CLOB.
 	 * @return a new CLOB.
 	 * @throws SQLException if a database access error occurs.
-	 * @author manuel.m.speranza
 	 * @since 12-04-2018
 	 */
 	public Clob getClob() throws SQLException {
@@ -266,7 +270,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * @param updateColumnList the list of columns to update.
 	 * @param batchSize the batch size.
 	 * @param commitBatchSize the commit batch size.
-	 * @author manuel.m.speranza
 	 * @since 27-04-2018
 	 */
 	public void xmlSave(Document doc, String tableName, String[] updateColumnList, int batchSize, int commitBatchSize) {
@@ -298,7 +301,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * @param batchSize the batch size.
 	 * @param commitBatchSize the commit batch size.
 	 * @throws IOException if an I/O error occurs.
-	 * @author manuel.m.speranza
 	 * @since 06-08-2019
 	 */
 	public void xmlSave(String xml, String tableName, String[] updateColumnList, int batchSize, int commitBatchSize) throws IOException {
@@ -325,7 +327,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * Executes a query and returns the result as a DOM document.
 	 * @param query the query statement.
 	 * @return the result as a DOM document.
-	 * @author manuel.m.speranza
 	 * @since 06-08-2019
 	 */
 	public Document xmlQueryDocument(String query) {
@@ -339,7 +340,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * Executes a query and returns the result as an XML string.
 	 * @param query the query statement.
 	 * @return the result as an XML string.
-	 * @author manuel.m.speranza
 	 * @since 07-08-2019
 	 */
 	public String xmlQuery(String query) {
@@ -369,7 +369,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * @param updateColumnList the list of columns to update.
 	 * @param batchSize the batch size.
 	 * @param commitBatchSize the commit batch size.
-	 * @author manuel.m.speranza
 	 * @since 19-06-2020
 	 */
 	public void xmlUpdate(Document doc, String tableName, String[] keyColumnList, String[] updateColumnList, int batchSize, int commitBatchSize) {
@@ -403,7 +402,6 @@ public class OrclConnectionManager extends ConnectionManager {
 	 * @param batchSize the batch size.
 	 * @param commitBatchSize the commit batch size.
 	 * @throws IOException if an I/O error occurs.
-	 * @author manuel.m.speranza
 	 * @since 19-06-2020
 	 */
 	public void xmlUpdate(String xml, String tableName, String[] keyColumnList, String[] updateColumnList, int batchSize, int commitBatchSize) throws IOException {
